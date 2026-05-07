@@ -1,0 +1,16 @@
+{
+  "Site": {
+    "name": "Human Aging Simulators",
+    "tagline": "Open digital lab modeling human aging with synthetic data."
+  },
+  "Home": {
+    "title": "Human Aging Simulators",
+    "subtitle": "We simulate how the human body ages, using synthetic data and open science. For everyone.",
+    "ctaDonate": "Donate",
+    "ctaParticipate": "Join the waitlist",
+    "scaffoldNotice": "Sprint 1 scaffolding — landing pages arrive in Sprint 2."
+  },
+  "Disclaimer": {
+    "notMedicalDevice": "Not a medical device. Educational and research purposes only. Do not use for diagnosis or treatment."
+  }
+}

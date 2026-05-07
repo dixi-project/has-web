@@ -1,36 +1,159 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Human Aging Simulators — `has-web`
 
-## Getting Started
+[Español](#español) · [English](#english)
 
-First, run the development server:
+---
+
+## Español
+
+**Human Aging Simulators (HAS)** es un laboratorio digital abierto que modela el envejecimiento humano usando datos sintéticos y ciencia abierta.
+
+Este repositorio contiene **`has-web`**: el frontend público (landing, donaciones, lista de espera de ciencia ciudadana, transparencia).
+
+### Stack
+
+- [Next.js 16](https://nextjs.org) (App Router) con `output: "export"` (sitio 100% estático)
+- [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS 4](https://tailwindcss.com)
+- [next-intl 4](https://next-intl.dev) para i18n (ES, EN)
+- [pnpm](https://pnpm.io) como package manager
+
+### Comenzar
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Rutas:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `/` → redirección al idioma del navegador (ES o EN)
+- `/en/` → home en inglés
+- `/es/` → home en español
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Comandos útiles
 
-## Learn More
+```bash
+pnpm dev            # servidor de desarrollo
+pnpm build          # build estático en `out/`
+pnpm lint           # ESLint
+pnpm format         # formatea con Prettier
+pnpm format:check   # valida formato (CI)
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Estructura
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+  app/
+    [locale]/         Rutas internacionalizadas (es, en)
+    globals.css       Estilos Tailwind globales
+  i18n/
+    routing.ts        Locales soportados y default
+    request.ts        Configuración de mensajes por request
+    navigation.ts     Helpers Link/redirect tipados
+messages/             Catálogos de traducción por idioma
+  en.json
+  es.json
+public/
+  index.html          Redirect del root al idioma del navegador
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Política de internacionalización
 
-## Deploy on Vercel
+URLs con prefijo de idioma obligatorio. Detección por `navigator.language` en root. `hreflang` y `canonical` en cada página. Traducciones server-side, sin strings hardcodeados en componentes. Detalle completo en `../00-governance/policies/i18n-policy.md`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Disclaimer
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+HAS **no es un dispositivo médico**. Sólo con fines educativos y de investigación. No utilizar para diagnóstico ni tratamiento. Ver ADR-008.
+
+### Documentación del proyecto
+
+El framework de specs (SDD) vive en el directorio padre `sys_has/`:
+
+- Visión: `../00-master-spec.md`
+- Roadmap: `../16-product/roadmap.md`
+- Plan Fase 1: `../tasks/backlog/001-PHASE-1-implementation-plan.md`
+- ADRs: `../09-architecture/adr/`
+
+### Licencia
+
+MIT.
+
+---
+
+## English
+
+**Human Aging Simulators (HAS)** is an open digital lab modeling human aging with synthetic data and open science.
+
+This repository contains **`has-web`**: the public frontend (landing, donations, citizen science waitlist, transparency).
+
+### Stack
+
+- [Next.js 16](https://nextjs.org) (App Router) with `output: "export"` (fully static site)
+- [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS 4](https://tailwindcss.com)
+- [next-intl 4](https://next-intl.dev) for i18n (ES, EN)
+- [pnpm](https://pnpm.io) as the package manager
+
+### Getting started
+
+```bash
+pnpm install
+pnpm dev          # http://localhost:3000
+```
+
+Routes:
+
+- `/` → redirects to the user's browser locale (ES or EN)
+- `/en/` → English home
+- `/es/` → Spanish home
+
+### Useful commands
+
+```bash
+pnpm dev            # dev server
+pnpm build          # static build into `out/`
+pnpm lint           # ESLint
+pnpm format         # format with Prettier
+pnpm format:check   # validate formatting (CI)
+```
+
+### Layout
+
+```
+src/
+  app/
+    [locale]/         Internationalized routes (es, en)
+    globals.css       Global Tailwind styles
+  i18n/
+    routing.ts        Supported locales and default
+    request.ts        Per-request messages config
+    navigation.ts     Typed Link/redirect helpers
+messages/             Translation catalogs per locale
+  en.json
+  es.json
+public/
+  index.html          Root redirect to the browser locale
+```
+
+### Internationalization policy
+
+Locale-prefixed URLs are mandatory. Detection happens via `navigator.language` at the root. `hreflang` and `canonical` are present on every page. Translations are server-rendered; no hardcoded strings in components. Full policy in `../00-governance/policies/i18n-policy.md`.
+
+### Disclaimer
+
+HAS **is not a medical device**. Educational and research purposes only. Do not use for diagnosis or treatment. See ADR-008.
+
+### Project documentation
+
+The SDD spec framework lives in the parent directory `sys_has/`:
+
+- Vision: `../00-master-spec.md`
+- Roadmap: `../16-product/roadmap.md`
+- Phase 1 plan: `../tasks/backlog/001-PHASE-1-implementation-plan.md`
+- ADRs: `../09-architecture/adr/`
+
+### License
+
+MIT.

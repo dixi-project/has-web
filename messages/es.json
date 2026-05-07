@@ -1,0 +1,16 @@
+{
+  "Site": {
+    "name": "Human Aging Simulators",
+    "tagline": "Laboratorio digital abierto que modela el envejecimiento humano con datos sintéticos."
+  },
+  "Home": {
+    "title": "Human Aging Simulators",
+    "subtitle": "Simulamos cómo envejece el cuerpo humano, con datos sintéticos y ciencia abierta. Para toda la humanidad.",
+    "ctaDonate": "Donar",
+    "ctaParticipate": "Unirme a la lista",
+    "scaffoldNotice": "Andamiaje del Sprint 1 — las landing pages llegan en el Sprint 2."
+  },
+  "Disclaimer": {
+    "notMedicalDevice": "No es un dispositivo médico. Sólo con fines educativos y de investigación. No utilizar para diagnóstico o tratamiento."
+  }
+}
