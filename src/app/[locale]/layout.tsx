@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { setRequestLocale, getMessages } from "next-intl/server";
+import {
+  setRequestLocale,
+  getMessages,
+  getTranslations,
+} from "next-intl/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
+import { routing, rtlLocales } from "@/i18n/routing";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -16,17 +20,45 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Human Aging Simulators",
-    template: "%s | Human Aging Simulators",
-  },
-  description:
-    "Open digital lab modeling human aging with synthetic data and open science.",
-};
-
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const tSite = await getTranslations({ locale, namespace: "Site" });
+  const tHero = await getTranslations({ locale, namespace: "Hero" });
+
+  const languages: Record<string, string> = {
+    "x-default": "/en/",
+  };
+  for (const l of routing.locales) {
+    languages[l] = `/${l}/`;
+  }
+
+  return {
+    metadataBase: new URL("https://haslife.org"),
+    title: {
+      default: tSite("name"),
+      template: `%s | ${tSite("name")}`,
+    },
+    description: tHero("subtitle"),
+    alternates: {
+      canonical: `/${locale}/`,
+      languages,
+    },
+    openGraph: {
+      title: tSite("name"),
+      description: tHero("subtitle"),
+      locale,
+      alternateLocale: routing.locales.filter((l) => l !== locale),
+      type: "website",
+    },
+  };
 }
 
 export default async function LocaleLayout({
@@ -47,6 +79,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
+      dir={rtlLocales.has(locale) ? "rtl" : "ltr"}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
