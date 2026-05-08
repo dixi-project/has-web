@@ -2,7 +2,7 @@
 # Build the Next.js export, sync to S3, invalidate CloudFront.
 #
 # Usage:
-#   pnpm deploy
+#   pnpm run deploy        (note: `pnpm deploy` is a reserved workspace command)
 #   AWS_PROFILE=dixi ./scripts/deploy.sh
 #
 # Reads bucket and distribution id from Terraform outputs.
