@@ -67,3 +67,21 @@ variable "billing_alert_critical_usd" {
   type        = number
   default     = 20
 }
+
+variable "github_repo" {
+  description = "Repo GitHub de has-web (owner/repo) — source del pipeline de CI/CD."
+  type        = string
+  default     = "dixi-project/has-web"
+}
+
+variable "github_admin_repo" {
+  description = "Repo GitHub de has-admin (owner/repo) — source del pipeline de CI/CD."
+  type        = string
+  default     = "dixi-project/has-admin"
+}
+
+variable "github_branch" {
+  description = "Rama que dispara el pipeline de despliegue."
+  type        = string
+  default     = "main"
+}
