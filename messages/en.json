@@ -16,7 +16,8 @@
     "donate": "Donate",
     "citizens": "Citizens",
     "collaborators": "Collaborators",
-    "signIn": "Sign in"
+    "signIn": "Sign in",
+    "simulator": "Simulator"
   },
   "Hero": {
     "eyebrow": "A common cause for all of humanity · Open science · Come and join",
@@ -688,5 +689,45 @@
     "successMessage": "We received your message. We'll reply soon to the email you provided.",
     "recaptchaNotice": "This site is protected by reCAPTCHA. Google's Privacy Policy and Terms of Service apply.",
     "privacyNotice": "We only use these details to reply to you. We don't share them with third parties."
+  },
+  "Simulator": {
+    "metaTitle": "Aging simulator — Human Aging Simulators",
+    "metaDescription": "Explore the HAS physiological simulation engine: adjust a meal and watch blood glucose respond live, driven by the Bergman model.",
+    "eyebrow": "Simulation engine",
+    "title": "A digital human that ages",
+    "subtitle": "HAS models the body as coupled physiological systems that evolve over time. Here you can see the first of them in action: glucose metabolism.",
+    "intro": {
+      "heading": "What the engine is",
+      "body": "The HAS engine simulates an individual as a set of physiological systems —metabolic, cardiovascular, endocrine, immune…— that interact step by step. Each system is grounded in published scientific models, and it is deterministic and reproducible: the same configuration and the same seed always produce the same trajectory. The goal is to explore how habits and interventions shape aging across decades."
+    },
+    "demo": {
+      "title": "Demo: the glucose response to a meal",
+      "intro": "Adjust a meal's carbohydrates and the individual's age. The curve shows how blood glucose rises and falls over the next four hours. All the computation runs in your browser.",
+      "carbsLabel": "Meal carbohydrates",
+      "carbsUnit": "g",
+      "ageLabel": "Age of the individual",
+      "ageUnit": "years",
+      "fasting": "Fasting glucose",
+      "peak": "Glucose peak",
+      "axisTime": "Minutes after the meal",
+      "axisGlucose": "Glucose (mg/dL)",
+      "legend": "The green band marks the healthy post-meal range; the red line, the hyperglycemia threshold.",
+      "chartAlt": "Chart of blood glucose over the four hours following a meal.",
+      "status": {
+        "healthy": "Glucose peaks at {minute} min and stays within the healthy range.",
+        "elevated": "Glucose peaks at {minute} min, above the ideal range.",
+        "hyper": "Glucose crosses the hyperglycemia threshold at {minute} min."
+      }
+    },
+    "model": {
+      "heading": "How the model works",
+      "body": "Glucose metabolism uses the Bergman minimal model: four coupled differential equations describing plasma glucose, insulin, its action on tissues, and the intestinal absorption of carbohydrates. A meal loads the gut; glucose appears gradually in the blood; the pancreas secretes insulin, which clears it. With age, insulin sensitivity declines, so the same plate produces a higher and longer-lasting peak in an older person."
+    },
+    "disclaimer": "This simulation is educational and exploratory. HAS is not a medical device or a diagnostic tool, and it does not replace the advice of a health professional.",
+    "cta": {
+      "heading": "The simulator learns from real people",
+      "body": "The more people contribute their health data anonymously, the more faithful the digital human becomes. That is the citizen science behind HAS.",
+      "button": "See how to take part"
+    }
   }
 }

@@ -22,7 +22,8 @@
     "donate": "Spenden",
     "citizens": "Bürger",
     "collaborators": "Mitwirkende",
-    "signIn": "Anmelden"
+    "signIn": "Anmelden",
+    "simulator": "Simulator"
   },
   "Hero": {
     "eyebrow": "Eine gemeinsame Sache für die ganze Menschheit · Offene Wissenschaft · Mach mit",
@@ -694,5 +695,45 @@
     "successMessage": "Wir haben deine Nachricht erhalten. Wir antworten dir so bald wie möglich an die angegebene E-Mail-Adresse.",
     "recaptchaNotice": "Diese Website ist durch reCAPTCHA geschützt. Es gelten die Datenschutzerklärung und die Nutzungsbedingungen von Google.",
     "privacyNotice": "Wir verwenden diese Daten ausschließlich, um dir zu antworten. Wir geben sie nicht an Dritte weiter."
+  },
+  "Simulator": {
+    "metaTitle": "Alterungssimulator — Human Aging Simulators",
+    "metaDescription": "Erkunde die physiologische Simulations-Engine von HAS: Stelle eine Mahlzeit ein und beobachte live, wie der Blutzucker nach dem Bergman-Modell reagiert.",
+    "eyebrow": "Simulations-Engine",
+    "title": "Ein digitaler Mensch, der altert",
+    "subtitle": "HAS modelliert den Körper als gekoppelte physiologische Systeme, die sich über die Zeit entwickeln. Hier siehst du das erste davon in Aktion: den Glukosestoffwechsel.",
+    "intro": {
+      "heading": "Was die Engine ist",
+      "body": "Die HAS-Engine simuliert ein Individuum als eine Reihe physiologischer Systeme —metabolisch, kardiovaskulär, endokrin, immunologisch…—, die Schritt für Schritt interagieren. Jedes System beruht auf veröffentlichten wissenschaftlichen Modellen, ist deterministisch und reproduzierbar: dieselbe Konfiguration und derselbe Startwert ergeben stets dieselbe Trajektorie. Ziel ist es zu erkunden, wie Gewohnheiten und Interventionen das Altern über Jahrzehnte hinweg prägen."
+    },
+    "demo": {
+      "title": "Demo: die Glukoseantwort auf eine Mahlzeit",
+      "intro": "Stelle die Kohlenhydrate einer Mahlzeit und das Alter des Individuums ein. Die Kurve zeigt, wie der Blutzucker in den folgenden vier Stunden steigt und fällt. Die gesamte Berechnung läuft in deinem Browser.",
+      "carbsLabel": "Kohlenhydrate der Mahlzeit",
+      "carbsUnit": "g",
+      "ageLabel": "Alter des Individuums",
+      "ageUnit": "Jahre",
+      "fasting": "Nüchternglukose",
+      "peak": "Glukosespitze",
+      "axisTime": "Minuten nach der Mahlzeit",
+      "axisGlucose": "Glukose (mg/dL)",
+      "legend": "Das grüne Band markiert den gesunden Bereich nach dem Essen; die rote Linie die Hyperglykämie-Schwelle.",
+      "chartAlt": "Diagramm des Blutzuckers über die vier Stunden nach einer Mahlzeit.",
+      "status": {
+        "healthy": "Die Glukose erreicht ihren Höchstwert bei {minute} min und bleibt im gesunden Bereich.",
+        "elevated": "Die Glukose erreicht ihren Höchstwert bei {minute} min, über dem Idealbereich.",
+        "hyper": "Die Glukose überschreitet die Hyperglykämie-Schwelle bei {minute} min."
+      }
+    },
+    "model": {
+      "heading": "Wie das Modell funktioniert",
+      "body": "Der Glukosestoffwechsel nutzt das Bergman-Minimalmodell: vier gekoppelte Differentialgleichungen, die die Plasmaglukose, das Insulin, dessen Wirkung auf das Gewebe und die Darmaufnahme der Kohlenhydrate beschreiben. Eine Mahlzeit füllt den Darm; die Glukose erscheint allmählich im Blut; die Bauchspeicheldrüse schüttet Insulin aus, das sie abbaut. Mit dem Alter sinkt die Insulinempfindlichkeit, weshalb derselbe Teller bei einer älteren Person eine höhere und länger anhaltende Spitze erzeugt."
+    },
+    "disclaimer": "Diese Simulation ist lehrreich und explorativ. HAS ist kein Medizinprodukt und kein Diagnosewerkzeug und ersetzt nicht den Rat einer medizinischen Fachkraft.",
+    "cta": {
+      "heading": "Der Simulator lernt von echten Menschen",
+      "body": "Je mehr Menschen ihre Gesundheitsdaten anonym beitragen, desto getreuer wird der digitale Mensch. Das ist die Bürgerwissenschaft hinter HAS.",
+      "button": "Erfahre, wie du mitmachst"
+    }
   }
 }

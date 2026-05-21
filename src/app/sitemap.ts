@@ -10,6 +10,7 @@ const PATHS = [
   { path: "donate", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "citizens", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "collaborators", priority: 0.9, changeFrequency: "weekly" as const },
+  { path: "simulator", priority: 0.9, changeFrequency: "weekly" as const },
 ];
 
 function url(locale: string, p: string) {

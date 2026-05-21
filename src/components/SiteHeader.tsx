@@ -14,6 +14,7 @@ export async function SiteHeader({ locale }: Props) {
     { href: `/${locale}/#system`, label: t("system") },
     { href: `/${locale}/#disciplines`, label: t("disciplines") },
     { href: `/${locale}/#roles`, label: t("roles") },
+    { href: `/${locale}/simulator/`, label: t("simulator") },
     { href: `/${locale}/#roadmap`, label: t("roadmap") },
   ];
 

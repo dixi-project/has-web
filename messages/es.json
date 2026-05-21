@@ -16,7 +16,8 @@
     "donate": "Donar",
     "citizens": "Ciudadanos",
     "collaborators": "Colaboradores",
-    "signIn": "Iniciar sesión"
+    "signIn": "Iniciar sesión",
+    "simulator": "Simulador"
   },
   "Hero": {
     "eyebrow": "Una causa común para toda la humanidad · Ciencia abierta · Te invitamos a sumarte",
@@ -688,5 +689,45 @@
     "successMessage": "Recibimos tu mensaje. Te contestaremos en cuanto podamos al email que dejaste.",
     "recaptchaNotice": "Este sitio está protegido por reCAPTCHA. Aplican la Política de privacidad y los Términos de servicio de Google.",
     "privacyNotice": "Solo usamos estos datos para responderte. No los compartimos con terceros."
+  },
+  "Simulator": {
+    "metaTitle": "Simulador del envejecimiento — Human Aging Simulators",
+    "metaDescription": "Explora el motor de simulación fisiológica de HAS: ajusta una comida y observa en vivo cómo responde la glucosa en sangre según el modelo de Bergman.",
+    "eyebrow": "Motor de simulación",
+    "title": "Un humano digital que envejece",
+    "subtitle": "HAS modela el cuerpo como sistemas fisiológicos acoplados que evolucionan en el tiempo. Aquí puedes ver el primero de ellos en acción: el metabolismo de la glucosa.",
+    "intro": {
+      "heading": "Qué es el motor",
+      "body": "El motor de HAS simula a un individuo como un conjunto de sistemas fisiológicos —metabólico, cardiovascular, endócrino, inmune…— que interactúan paso a paso. Cada sistema se basa en modelos científicos publicados, es determinista y reproducible: la misma configuración y la misma semilla producen siempre la misma trayectoria. El objetivo es explorar cómo los hábitos y las intervenciones moldean el envejecimiento a lo largo de décadas."
+    },
+    "demo": {
+      "title": "Demo: respuesta de la glucosa a una comida",
+      "intro": "Ajusta los carbohidratos de una comida y la edad del individuo. La curva muestra cómo sube y baja la glucosa en sangre durante las cuatro horas siguientes. Todo el cálculo ocurre en tu navegador.",
+      "carbsLabel": "Carbohidratos de la comida",
+      "carbsUnit": "g",
+      "ageLabel": "Edad del individuo",
+      "ageUnit": "años",
+      "fasting": "Glucosa en ayuno",
+      "peak": "Pico de glucosa",
+      "axisTime": "Minutos tras la comida",
+      "axisGlucose": "Glucosa (mg/dL)",
+      "legend": "La banda verde marca el rango postprandial saludable; la línea roja, el umbral de hiperglucemia.",
+      "chartAlt": "Gráfico de la glucosa en sangre a lo largo de cuatro horas tras una comida.",
+      "status": {
+        "healthy": "La glucosa alcanza su pico a los {minute} min y se mantiene en el rango saludable.",
+        "elevated": "La glucosa alcanza su pico a los {minute} min, por encima del rango ideal.",
+        "hyper": "La glucosa cruza el umbral de hiperglucemia a los {minute} min."
+      }
+    },
+    "model": {
+      "heading": "Cómo funciona el modelo",
+      "body": "El metabolismo de la glucosa usa el modelo mínimo de Bergman: cuatro ecuaciones diferenciales acopladas que describen la glucosa en plasma, la insulina, su acción sobre los tejidos y la absorción intestinal de los carbohidratos. Una comida carga el intestino; la glucosa aparece de forma gradual en la sangre; el páncreas secreta insulina, que la retira. Con la edad la sensibilidad a la insulina disminuye, y por eso el mismo plato produce un pico más alto y más prolongado en una persona mayor."
+    },
+    "disclaimer": "Esta simulación es educativa y exploratoria. HAS no es un dispositivo médico ni una herramienta de diagnóstico, y no sustituye el consejo de un profesional de la salud.",
+    "cta": {
+      "heading": "El simulador aprende de personas reales",
+      "body": "Cuanta más gente aporte sus datos de salud de forma anónima, más fiel será el humano digital. Esa es la ciencia ciudadana detrás de HAS.",
+      "button": "Conoce cómo participar"
+    }
   }
 }

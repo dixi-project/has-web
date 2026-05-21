@@ -22,7 +22,8 @@
     "donate": "Faire un don",
     "citizens": "Citoyens",
     "collaborators": "Collaborateurs",
-    "signIn": "Se connecter"
+    "signIn": "Se connecter",
+    "simulator": "Simulateur"
   },
   "Hero": {
     "eyebrow": "Une cause commune pour toute l'humanité · Science ouverte · Rejoignez-nous",
@@ -694,5 +695,45 @@
     "successMessage": "Nous avons bien reçu votre message. Nous vous répondrons dès que possible à l'adresse e-mail que vous avez indiquée.",
     "recaptchaNotice": "Ce site est protégé par reCAPTCHA. La Politique de confidentialité et les Conditions d'utilisation de Google s'appliquent.",
     "privacyNotice": "Nous utilisons ces données uniquement pour vous répondre. Nous ne les partageons pas avec des tiers."
+  },
+  "Simulator": {
+    "metaTitle": "Simulateur du vieillissement — Human Aging Simulators",
+    "metaDescription": "Découvrez le moteur de simulation physiologique de HAS : ajustez un repas et observez en direct la réponse de la glycémie, selon le modèle de Bergman.",
+    "eyebrow": "Moteur de simulation",
+    "title": "Un humain numérique qui vieillit",
+    "subtitle": "HAS modélise le corps comme des systèmes physiologiques couplés qui évoluent dans le temps. Vous pouvez voir ici le premier d'entre eux en action : le métabolisme du glucose.",
+    "intro": {
+      "heading": "Ce qu'est le moteur",
+      "body": "Le moteur de HAS simule un individu comme un ensemble de systèmes physiologiques —métabolique, cardiovasculaire, endocrinien, immunitaire…— qui interagissent pas à pas. Chaque système repose sur des modèles scientifiques publiés ; il est déterministe et reproductible : la même configuration et la même graine produisent toujours la même trajectoire. L'objectif est d'explorer comment les habitudes et les interventions façonnent le vieillissement au fil des décennies."
+    },
+    "demo": {
+      "title": "Démo : la réponse du glucose à un repas",
+      "intro": "Ajustez les glucides d'un repas et l'âge de l'individu. La courbe montre comment la glycémie monte et descend pendant les quatre heures suivantes. Tout le calcul s'exécute dans votre navigateur.",
+      "carbsLabel": "Glucides du repas",
+      "carbsUnit": "g",
+      "ageLabel": "Âge de l'individu",
+      "ageUnit": "ans",
+      "fasting": "Glycémie à jeun",
+      "peak": "Pic de glycémie",
+      "axisTime": "Minutes après le repas",
+      "axisGlucose": "Glucose (mg/dL)",
+      "legend": "La bande verte indique la plage postprandiale saine ; la ligne rouge, le seuil d'hyperglycémie.",
+      "chartAlt": "Graphique de la glycémie au cours des quatre heures suivant un repas.",
+      "status": {
+        "healthy": "La glycémie atteint son pic à {minute} min et reste dans la plage saine.",
+        "elevated": "La glycémie atteint son pic à {minute} min, au-dessus de la plage idéale.",
+        "hyper": "La glycémie franchit le seuil d'hyperglycémie à {minute} min."
+      }
+    },
+    "model": {
+      "heading": "Comment fonctionne le modèle",
+      "body": "Le métabolisme du glucose utilise le modèle minimal de Bergman : quatre équations différentielles couplées décrivant le glucose plasmatique, l'insuline, son action sur les tissus et l'absorption intestinale des glucides. Un repas charge l'intestin ; le glucose apparaît progressivement dans le sang ; le pancréas sécrète de l'insuline, qui l'élimine. Avec l'âge, la sensibilité à l'insuline diminue : la même assiette produit donc un pic plus élevé et plus durable chez une personne âgée."
+    },
+    "disclaimer": "Cette simulation est éducative et exploratoire. HAS n'est pas un dispositif médical ni un outil de diagnostic, et ne remplace pas l'avis d'un professionnel de santé.",
+    "cta": {
+      "heading": "Le simulateur apprend de personnes réelles",
+      "body": "Plus de personnes partagent leurs données de santé de façon anonyme, plus l'humain numérique gagne en fidélité. C'est la science citoyenne derrière HAS.",
+      "button": "Voir comment participer"
+    }
   }
 }

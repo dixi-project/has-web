@@ -22,7 +22,8 @@
     "donate": "Doar",
     "citizens": "Cidadãos",
     "collaborators": "Colaboradores",
-    "signIn": "Entrar"
+    "signIn": "Entrar",
+    "simulator": "Simulador"
   },
   "Hero": {
     "eyebrow": "Uma causa comum para toda a humanidade · Ciência aberta · Convidamos você a participar",
@@ -694,5 +695,45 @@
     "successMessage": "Recebemos sua mensagem. Responderemos assim que possível para o e-mail que você deixou.",
     "recaptchaNotice": "Este site é protegido por reCAPTCHA. Aplicam-se a Política de Privacidade e os Termos de Serviço do Google.",
     "privacyNotice": "Usamos esses dados apenas para responder a você. Não os compartilhamos com terceiros."
+  },
+  "Simulator": {
+    "metaTitle": "Simulador do envelhecimento — Human Aging Simulators",
+    "metaDescription": "Explore o motor de simulação fisiológica do HAS: ajuste uma refeição e veja ao vivo como a glicose no sangue responde, segundo o modelo de Bergman.",
+    "eyebrow": "Motor de simulação",
+    "title": "Um humano digital que envelhece",
+    "subtitle": "O HAS modela o corpo como sistemas fisiológicos acoplados que evoluem ao longo do tempo. Aqui você pode ver o primeiro deles em ação: o metabolismo da glicose.",
+    "intro": {
+      "heading": "O que é o motor",
+      "body": "O motor do HAS simula um indivíduo como um conjunto de sistemas fisiológicos —metabólico, cardiovascular, endócrino, imunológico…— que interagem passo a passo. Cada sistema baseia-se em modelos científicos publicados, é determinista e reproduzível: a mesma configuração e a mesma semente produzem sempre a mesma trajetória. O objetivo é explorar como os hábitos e as intervenções moldam o envelhecimento ao longo de décadas."
+    },
+    "demo": {
+      "title": "Demo: a resposta da glicose a uma refeição",
+      "intro": "Ajuste os carboidratos de uma refeição e a idade do indivíduo. A curva mostra como a glicose no sangue sobe e desce nas quatro horas seguintes. Todo o cálculo ocorre no seu navegador.",
+      "carbsLabel": "Carboidratos da refeição",
+      "carbsUnit": "g",
+      "ageLabel": "Idade do indivíduo",
+      "ageUnit": "anos",
+      "fasting": "Glicose em jejum",
+      "peak": "Pico de glicose",
+      "axisTime": "Minutos após a refeição",
+      "axisGlucose": "Glicose (mg/dL)",
+      "legend": "A faixa verde marca o intervalo pós-refeição saudável; a linha vermelha, o limiar de hiperglicemia.",
+      "chartAlt": "Gráfico da glicose no sangue ao longo das quatro horas após uma refeição.",
+      "status": {
+        "healthy": "A glicose atinge o pico aos {minute} min e permanece na faixa saudável.",
+        "elevated": "A glicose atinge o pico aos {minute} min, acima da faixa ideal.",
+        "hyper": "A glicose cruza o limiar de hiperglicemia aos {minute} min."
+      }
+    },
+    "model": {
+      "heading": "Como funciona o modelo",
+      "body": "O metabolismo da glicose usa o modelo mínimo de Bergman: quatro equações diferenciais acopladas que descrevem a glicose no plasma, a insulina, sua ação sobre os tecidos e a absorção intestinal dos carboidratos. Uma refeição carrega o intestino; a glicose aparece gradualmente no sangue; o pâncreas secreta insulina, que a remove. Com a idade, a sensibilidade à insulina diminui, e por isso o mesmo prato produz um pico mais alto e mais prolongado numa pessoa mais velha."
+    },
+    "disclaimer": "Esta simulação é educativa e exploratória. O HAS não é um dispositivo médico nem uma ferramenta de diagnóstico, e não substitui o conselho de um profissional de saúde.",
+    "cta": {
+      "heading": "O simulador aprende com pessoas reais",
+      "body": "Quanto mais pessoas contribuírem com seus dados de saúde de forma anônima, mais fiel será o humano digital. Essa é a ciência cidadã por trás do HAS.",
+      "button": "Veja como participar"
+    }
   }
 }

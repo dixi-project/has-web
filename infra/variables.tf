@@ -80,6 +80,12 @@ variable "github_admin_repo" {
   default     = "dixi-project/has-admin"
 }
 
+variable "github_simulator_repo" {
+  description = "Repo GitHub de has-simulator (owner/repo) — source del pipeline de CI."
+  type        = string
+  default     = "dixi-project/has-simulator"
+}
+
 variable "github_branch" {
   description = "Rama que dispara el pipeline de despliegue."
   type        = string

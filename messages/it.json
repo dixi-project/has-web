@@ -22,7 +22,8 @@
     "donate": "Dona",
     "citizens": "Cittadini",
     "collaborators": "Collaboratori",
-    "signIn": "Accedi"
+    "signIn": "Accedi",
+    "simulator": "Simulatore"
   },
   "Hero": {
     "eyebrow": "Una causa comune per tutta l'umanità · Scienza aperta · Ti invitiamo a unirti",
@@ -694,5 +695,45 @@
     "successMessage": "Abbiamo ricevuto il tuo messaggio. Ti risponderemo appena possibile all'e-mail che ci hai lasciato.",
     "recaptchaNotice": "Questo sito è protetto da reCAPTCHA. Si applicano l'Informativa sulla privacy e i Termini di servizio di Google.",
     "privacyNotice": "Usiamo questi dati solo per risponderti. Non li condividiamo con terze parti."
+  },
+  "Simulator": {
+    "metaTitle": "Simulatore dell'invecchiamento — Human Aging Simulators",
+    "metaDescription": "Esplora il motore di simulazione fisiologica di HAS: regola un pasto e osserva dal vivo la risposta della glicemia, secondo il modello di Bergman.",
+    "eyebrow": "Motore di simulazione",
+    "title": "Un essere umano digitale che invecchia",
+    "subtitle": "HAS modella il corpo come sistemi fisiologici accoppiati che evolvono nel tempo. Qui puoi vedere il primo di essi in azione: il metabolismo del glucosio.",
+    "intro": {
+      "heading": "Cos'è il motore",
+      "body": "Il motore di HAS simula un individuo come un insieme di sistemi fisiologici —metabolico, cardiovascolare, endocrino, immunitario…— che interagiscono passo dopo passo. Ogni sistema si basa su modelli scientifici pubblicati, è deterministico e riproducibile: la stessa configurazione e lo stesso seme producono sempre la stessa traiettoria. L'obiettivo è esplorare come abitudini e interventi modellano l'invecchiamento nell'arco di decenni."
+    },
+    "demo": {
+      "title": "Demo: la risposta del glucosio a un pasto",
+      "intro": "Regola i carboidrati di un pasto e l'età dell'individuo. La curva mostra come la glicemia sale e scende nelle quattro ore successive. Tutto il calcolo avviene nel tuo browser.",
+      "carbsLabel": "Carboidrati del pasto",
+      "carbsUnit": "g",
+      "ageLabel": "Età dell'individuo",
+      "ageUnit": "anni",
+      "fasting": "Glicemia a digiuno",
+      "peak": "Picco di glicemia",
+      "axisTime": "Minuti dopo il pasto",
+      "axisGlucose": "Glucosio (mg/dL)",
+      "legend": "La fascia verde indica l'intervallo post-prandiale sano; la linea rossa, la soglia di iperglicemia.",
+      "chartAlt": "Grafico della glicemia nelle quattro ore successive a un pasto.",
+      "status": {
+        "healthy": "La glicemia raggiunge il picco a {minute} min e rimane nell'intervallo sano.",
+        "elevated": "La glicemia raggiunge il picco a {minute} min, oltre l'intervallo ideale.",
+        "hyper": "La glicemia supera la soglia di iperglicemia a {minute} min."
+      }
+    },
+    "model": {
+      "heading": "Come funziona il modello",
+      "body": "Il metabolismo del glucosio usa il modello minimo di Bergman: quattro equazioni differenziali accoppiate che descrivono il glucosio plasmatico, l'insulina, la sua azione sui tessuti e l'assorbimento intestinale dei carboidrati. Un pasto carica l'intestino; il glucosio compare gradualmente nel sangue; il pancreas secerne insulina, che lo rimuove. Con l'età la sensibilità all'insulina diminuisce, e perciò lo stesso piatto produce un picco più alto e più prolungato in una persona anziana."
+    },
+    "disclaimer": "Questa simulazione è educativa ed esplorativa. HAS non è un dispositivo medico né uno strumento diagnostico e non sostituisce il parere di un professionista sanitario.",
+    "cta": {
+      "heading": "Il simulatore impara da persone reali",
+      "body": "Più persone condividono i propri dati sanitari in forma anonima, più fedele diventa l'essere umano digitale. È la scienza dei cittadini dietro HAS.",
+      "button": "Scopri come partecipare"
+    }
   }
 }
