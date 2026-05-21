@@ -1,0 +1,42 @@
+version: 0.2
+
+# CI/CD de has-web — se ejecuta en CodeBuild, disparado por CodePipeline en
+# cada push a `main` (ADR-026). Reemplaza el deploy manual (scripts/deploy.sh)
+# y el workflow de GitHub Actions.
+#
+# Variables de entorno (definidas en el proyecto CodeBuild vía Terraform):
+#   SITE_BUCKET  — bucket S3 del sitio estático
+#   CF_DIST_ID   — distribution de CloudFront a invalidar
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+    commands:
+      - corepack enable
+      - corepack prepare pnpm@9 --activate
+      - pnpm install --frozen-lockfile
+
+  pre_build:
+    commands:
+      - pnpm format:check
+      - pnpm lint
+
+  build:
+    commands:
+      - pnpm build
+      - test -d out || (echo "✗ out/ no generado — revisar output:'export' en next.config" && exit 1)
+
+  post_build:
+    commands:
+      # No desplegar si alguna fase anterior falló.
+      - '[ "$CODEBUILD_BUILD_SUCCEEDING" = "1" ] || (echo "✗ Build falló — se aborta el deploy" && exit 1)'
+      - echo "→ Sync assets (immutable, 1 año)..."
+      - aws s3 sync out/ "s3://$SITE_BUCKET/" --delete --exclude "*.html" --exclude "*.json" --cache-control "public,max-age=31536000,immutable"
+      - echo "→ Sync HTML (sin cache)..."
+      - aws s3 sync out/ "s3://$SITE_BUCKET/" --exclude "*" --include "*.html" --content-type "text/html; charset=utf-8" --cache-control "public,max-age=0,s-maxage=300,must-revalidate"
+      - echo "→ Sync JSON (cache corto)..."
+      - aws s3 sync out/ "s3://$SITE_BUCKET/" --exclude "*" --include "*.json" --content-type "application/json; charset=utf-8" --cache-control "public,max-age=300,s-maxage=3600"
+      - echo "→ Invalidando CloudFront $CF_DIST_ID..."
+      - aws cloudfront create-invalidation --distribution-id "$CF_DIST_ID" --paths "/*"
+      - echo "✓ Deploy completo — https://haslife.org/"
