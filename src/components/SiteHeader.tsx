@@ -55,10 +55,10 @@ export async function SiteHeader({ locale }: Props) {
         <div className="flex items-center gap-2 text-sm">
           <LanguageSwitcher locale={locale} variant="header" />
           <a
-            href={`/${locale}/donate/`}
+            href={`https://admin.haslife.org/${locale}/login`}
             className="bg-foreground text-background inline-flex h-9 items-center justify-center rounded-full px-4 text-xs font-semibold hover:opacity-90"
           >
-            {t("donate")}
+            {t("signIn")}
           </a>
         </div>
       </div>

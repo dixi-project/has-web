@@ -15,7 +15,8 @@
     "transparency": "Transparencia",
     "donate": "Donar",
     "citizens": "Ciudadanos",
-    "collaborators": "Colaboradores"
+    "collaborators": "Colaboradores",
+    "signIn": "Iniciar sesión"
   },
   "Hero": {
     "eyebrow": "Una causa común para toda la humanidad · Ciencia abierta · Te invitamos a sumarte",
@@ -338,7 +339,7 @@
       "title": "Tus donaciones económicas financian la infraestructura que toda la humanidad va a usar para vivir mejor, más tiempo.",
       "subtitle": "No financias una empresa. Financias una capa abierta que cualquier país, hospital, universidad o persona podrá usar para entender y reducir la velocidad del envejecimiento. Cada peso es una promesa: más años buenos para alguien, en algún lugar.",
       "ctaPrimary": "Hacer una donación",
-      "ctaSecondary": "Ver reportes públicos"
+      "ctaSecondary": "Quiero saber más"
     },
     "what": {
       "title": "En qué se gasta cada peso",
@@ -422,6 +423,25 @@
       "title": "Las primeras donaciones son las que prueban que esto vale la pena.",
       "subtitle": "Aún estamos habilitando Stripe y OpenCollective. Mientras tanto, escríbenos para coordinar tu aporte.",
       "ctaLabel": "Escribir al equipo de donantes"
+    },
+    "form": {
+      "title": "Hacer una donación",
+      "subtitle": "Elige un monto y una frecuencia. El pago se procesa de forma segura por Stripe — no almacenamos los datos de tu tarjeta."
+    },
+    "accountCta": {
+      "title": "¿Quieres seguir el impacto de tu donación?",
+      "subtitle": "Crea tu cuenta de donante para ver, mes a mes, cómo se usa cada peso que aportas y descargar tus recibos.",
+      "cta": "Crear cuenta de donante"
+    },
+    "pause": {
+      "eyebrow": "Donaciones en pausa",
+      "title": "Estamos preparando la estructura legal para recibir donaciones",
+      "subtitle": "Mientras tanto, hay otras formas igual de importantes de aportar al proyecto.",
+      "legal": "Esta pausa es temporal. Pronto, con el respaldo de una entidad sin fines de lucro formal (Open Source Collective o Asociación Civil mexicana), volveremos a aceptar donaciones con total transparencia y deducibilidad fiscal donde aplique. Gracias por tu paciencia.",
+      "citizensTitle": "Soy una persona y quiero aportar mis datos",
+      "citizensCta": "Inscribirme como ciudadano",
+      "collaboratorsTitle": "Soy investigador/a, científica/o o periodista",
+      "collaboratorsCta": "Solicitar acceso como colaborador"
     }
   },
   "CitizensPage": {
@@ -601,5 +621,72 @@
   },
   "PageCommon": {
     "back": "← Volver al inicio"
+  },
+  "DonateForm": {
+    "frequency": "Frecuencia",
+    "once": "Una vez",
+    "monthly": "Mensual",
+    "chooseAmount": "Elige un monto",
+    "customPlaceholder": "Otro monto",
+    "customAmountLabel": "Monto personalizado en dólares estadounidenses",
+    "submit": "Donar ahora",
+    "processing": "Procesando…",
+    "securedBy": "Pago seguro procesado por Stripe.",
+    "errorInvalid": "Ingresa un monto válido.",
+    "errorMin": "El monto mínimo es $1 USD.",
+    "errorMax": "El monto máximo es $50,000 USD.",
+    "errorGeneric": "No pudimos iniciar el pago. Intenta de nuevo.",
+    "errorNetwork": "No pudimos conectar con el procesador. Revisa tu conexión e intenta de nuevo.",
+    "errorMisconfigured": "La página de donaciones no está configurada todavía. Vuelve a intentarlo más tarde."
+  },
+  "ThanksPage": {
+    "metaTitle": "Gracias por tu donación",
+    "metaDescription": "Tu aporte financia infraestructura abierta para extender los años buenos de vida.",
+    "eyebrow": "Donación recibida",
+    "title": "Gracias. En serio.",
+    "message": "Tu donación se procesó correctamente. Es un empuje concreto a la causa humana de la longevidad.",
+    "receiptNote": "Recibirás un recibo por email en los próximos minutos. Si no lo ves, revisa la carpeta de spam.",
+    "backHome": "Volver al inicio",
+    "seeImpact": "Ver en qué se gasta",
+    "recurringNote": "Si elegiste donación mensual, podrás gestionarla o cancelarla desde el enlace incluido en tu recibo."
+  },
+  "CancelPage": {
+    "metaTitle": "Donación cancelada",
+    "metaDescription": "La donación no se completó. Puedes intentar de nuevo cuando quieras.",
+    "eyebrow": "Pago no completado",
+    "title": "Tu donación quedó pendiente",
+    "message": "Cerraste el proceso antes de completar el pago. No se cobró nada. Puedes intentarlo de nuevo cuando quieras — la causa sigue ahí.",
+    "tryAgain": "Intentar de nuevo",
+    "backHome": "Volver al inicio"
+  },
+  "ContactPage": {
+    "metaTitle": "Contacto — Human Aging Simulators",
+    "metaDescription": "Escríbenos para colaborar, donar a mayor escala, integrar instituciones o resolver dudas.",
+    "eyebrow": "Contacto",
+    "title": "Hablemos",
+    "subtitle": "Déjanos tu nombre y un mensaje, y nos pondremos en contacto. Si representas a una institución, fundación o universidad y quieres explorar una colaboración formal, este es el camino."
+  },
+  "ContactForm": {
+    "nameLabel": "Nombre",
+    "emailLabel": "Email",
+    "phoneLabel": "Teléfono",
+    "phonePlaceholder": "+52 55 1234 5678",
+    "descriptionLabel": "¿En qué podemos ayudarte?",
+    "descriptionPlaceholder": "Cuéntanos brevemente qué te interesa: colaboración, donación institucional, prensa, dudas técnicas…",
+    "optional": "(opcional)",
+    "submit": "Enviar mensaje",
+    "processing": "Enviando…",
+    "errorName": "Ingresa un nombre válido.",
+    "errorEmail": "Ingresa un email válido.",
+    "errorDescription": "Cuéntanos un poco más en el mensaje.",
+    "errorCaptcha": "No pudimos verificar que eres humano. Recarga la página e intenta de nuevo.",
+    "errorGeneric": "No pudimos enviar tu mensaje. Intenta de nuevo en unos minutos.",
+    "errorNetwork": "No pudimos conectar. Revisa tu conexión a internet e intenta de nuevo.",
+    "errorMisconfigured": "El formulario aún no está configurado. Escríbenos a acastillejos@dixi-project.com mientras tanto.",
+    "successEyebrow": "Mensaje recibido",
+    "successTitle": "Gracias por escribirnos",
+    "successMessage": "Recibimos tu mensaje. Te contestaremos en cuanto podamos al email que dejaste.",
+    "recaptchaNotice": "Este sitio está protegido por reCAPTCHA. Aplican la Política de privacidad y los Términos de servicio de Google.",
+    "privacyNotice": "Solo usamos estos datos para responderte. No los compartimos con terceros."
   }
 }

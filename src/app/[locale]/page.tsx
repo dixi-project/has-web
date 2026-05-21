@@ -63,17 +63,10 @@ export default async function HomePage({ params }: Props) {
 
   const roles = [
     {
-      key: "donor",
-      href: `/${locale}/donate/`,
-      accent:
-        "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
-      cta: "bg-foreground text-background hover:opacity-90",
-    },
-    {
       key: "citizen",
       href: `/${locale}/citizens/`,
       accent: "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300",
-      cta: "border border-current hover:bg-black/5 dark:hover:bg-white/10",
+      cta: "bg-foreground text-background hover:opacity-90",
     },
     {
       key: "collaborator",
@@ -113,22 +106,16 @@ export default async function HomePage({ params }: Props) {
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
               <a
-                href={`/${locale}/donate/`}
-                className="bg-foreground text-background inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold hover:opacity-90"
-              >
-                {tHero("ctaDonate")}
-              </a>
-              <a
                 href={`/${locale}/citizens/`}
-                className="inline-flex h-12 items-center justify-center rounded-full border border-current px-6 text-sm font-semibold hover:bg-black/5 dark:hover:bg-white/10"
+                className="bg-foreground text-background inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold hover:opacity-90"
               >
                 {tHero("ctaShareData")}
               </a>
               <a
                 href={`/${locale}/collaborators/`}
-                className="inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold text-zinc-700 hover:underline dark:text-zinc-300"
+                className="inline-flex h-12 items-center justify-center rounded-full border border-current px-6 text-sm font-semibold hover:bg-black/5 dark:hover:bg-white/10"
               >
-                {tHero("ctaCollaborate")} →
+                {tHero("ctaCollaborate")}
               </a>
             </div>
 
@@ -575,14 +562,8 @@ export default async function HomePage({ params }: Props) {
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <a
-                href={`/${locale}/donate/`}
-                className="bg-foreground text-background inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold hover:opacity-90"
-              >
-                {tFinal("donateLabel")}
-              </a>
-              <a
                 href={`/${locale}/citizens/`}
-                className="inline-flex h-12 items-center justify-center rounded-full border border-current px-6 text-sm font-semibold hover:bg-black/5 dark:hover:bg-white/10"
+                className="bg-foreground text-background inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold hover:opacity-90"
               >
                 {tFinal("shareLabel")}
               </a>

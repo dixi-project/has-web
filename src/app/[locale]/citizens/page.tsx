@@ -81,7 +81,7 @@ export default async function CitizensPage({ params }: Props) {
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <a
-                href="mailto:waitlist@humanagingsimulators.org?subject=HAS%20citizens%20waitlist"
+                href={`https://admin.haslife.org/${locale}/signup?as=citizen`}
                 className="bg-foreground text-background inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold hover:opacity-90"
               >
                 {t("hero.ctaPrimary")}
@@ -199,7 +199,7 @@ export default async function CitizensPage({ params }: Props) {
               {t("ctaBlock.subtitle")}
             </p>
             <a
-              href="mailto:waitlist@humanagingsimulators.org?subject=HAS%20citizens%20waitlist"
+              href={`https://admin.haslife.org/${locale}/signup?as=citizen`}
               className="bg-foreground text-background mt-8 inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold hover:opacity-90"
             >
               {t("ctaBlock.ctaLabel")}

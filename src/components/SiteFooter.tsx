@@ -37,7 +37,7 @@ export async function SiteFooter({ locale }: Props) {
         { href: `/${locale}/#privacy`, label: t("linkPrivacy") },
         { href: "#", label: t("linkLicenses") },
         {
-          href: "mailto:hello@humanagingsimulators.org",
+          href: `/${locale}/contact/`,
           label: t("linkContact"),
         },
       ],
