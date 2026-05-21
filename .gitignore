@@ -50,3 +50,4 @@ crash.*.log
 
 # lambda build artifacts
 infra/*.zip
+infra/lambda-*/node_modules/

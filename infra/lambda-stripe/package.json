@@ -1,0 +1,15 @@
+{
+  "name": "has-stripe-checkout",
+  "version": "1.0.0",
+  "description": "Lambda Function URL that creates Stripe Checkout sessions for HAS donations",
+  "private": true,
+  "type": "module",
+  "main": "index.mjs",
+  "dependencies": {
+    "stripe": "^17.4.0",
+    "@aws-sdk/client-sesv2": "^3.700.0"
+  },
+  "scripts": {
+    "install:prod": "npm install --omit=dev"
+  }
+}

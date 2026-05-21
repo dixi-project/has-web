@@ -1,0 +1,11 @@
+{
+  "name": "has-cognito-post-confirm",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Cognito PostConfirmation trigger — sincroniza signup → tabla users en has_platform",
+  "main": "index.mjs",
+  "dependencies": {
+    "@aws-sdk/client-rds-data": "^3.741.0"
+  }
+}

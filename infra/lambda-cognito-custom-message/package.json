@@ -1,0 +1,8 @@
+{
+  "name": "has-cognito-custom-message",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Cognito CustomMessage trigger — emails transaccionales multi-locale (es/en)",
+  "main": "index.mjs"
+}
