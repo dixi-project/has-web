@@ -1,9 +1,11 @@
 ###############################################################################
 # CI — has-simulator: GitHub → CodePipeline → CodeBuild (ADR-026)
 #
-# has-simulator es research track y NO se despliega: este pipeline solo corre
-# el quality gate (ruff + mypy + pytest) definido en `buildspec.yml`. No tiene
-# stage de deploy — el stage `QualityGate` es la verificación completa.
+# El pipeline corre el quality gate (ruff + mypy + pytest) y, si pasa, construye
+# la imagen Docker del worker y la publica en ECR como `:latest` (R2.3c). No hay
+# stage de deploy aparte: el worker es una tarea Fargate one-shot que se lanza
+# con `:latest` por cada job, así que el push de la imagen es el despliegue.
+# Todo lo define `buildspec.yml`.
 #
 # Reemplaza el workflow GitHub Actions retirado (la org `dixi-project` migró
 # todo su CI/CD a CodePipeline).
@@ -30,7 +32,7 @@ resource "aws_iam_role_policy" "simulator_codebuild" {
   name = "has-simulator-codebuild-policy"
   role = aws_iam_role.simulator_codebuild.id
 
-  # Sin permisos de deploy: el quality gate no toca ningún recurso de runtime.
+  # Quality gate + build/push de la imagen del worker a ECR (R2.3c).
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -48,6 +50,24 @@ resource "aws_iam_role_policy" "simulator_codebuild" {
         Effect   = "Allow"
         Action   = ["s3:GetObject", "s3:GetObjectVersion", "s3:PutObject"]
         Resource = "${aws_s3_bucket.pipeline_artifacts.arn}/*"
+      },
+      {
+        # Token de login a ECR (la acción no admite recurso acotado).
+        Effect   = "Allow"
+        Action   = ["ecr:GetAuthorizationToken"]
+        Resource = "*"
+      },
+      {
+        # Push de la imagen del worker al repositorio ECR has-simulator.
+        Effect = "Allow"
+        Action = [
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:InitiateLayerUpload",
+          "ecr:UploadLayerPart",
+          "ecr:CompleteLayerUpload",
+          "ecr:PutImage",
+        ]
+        Resource = aws_ecr_repository.simulator.arn
       }
     ]
   })
@@ -64,10 +84,21 @@ resource "aws_codebuild_project" "simulator" {
   }
 
   environment {
-    # SMALL alcanza para lint + type-check + tests del engine bare.
-    compute_type = "BUILD_GENERAL1_SMALL"
-    image        = "aws/codebuild/amazonlinux-x86_64-standard:5.0"
-    type         = "LINUX_CONTAINER"
+    # MEDIUM + privileged: además del quality gate se construye la imagen
+    # Docker del worker (numpy/scipy/pandas) y se publica en ECR.
+    compute_type    = "BUILD_GENERAL1_MEDIUM"
+    image           = "aws/codebuild/amazonlinux-x86_64-standard:5.0"
+    type            = "LINUX_CONTAINER"
+    privileged_mode = true
+
+    environment_variable {
+      name  = "ECR_REPOSITORY_URL"
+      value = aws_ecr_repository.simulator.repository_url
+    }
+    environment_variable {
+      name  = "AWS_DEFAULT_REGION"
+      value = var.aws_region
+    }
   }
 
   source {
