@@ -46,13 +46,22 @@ export interface GlucoseProfile {
  * Deriva el perfil glucémico de un individuo a partir de su edad. La
  * sensibilidad a la insulina declina ~0,5 %/año tras los 30; la glucosa y la
  * insulina de ayuno suben levemente con la edad.
+ *
+ * `measuredFastingGlucose` (mg/dL) permite anclar el modelo en una glucosa de
+ * ayuno real del individuo —en lugar de la estimación por edad— cuando se
+ * dispone de mediciones del citizen-vault (FHIR Observations). El modelo fija
+ * el umbral de secreción β en esta glucosa, así que un valor real desplaza el
+ * equilibrio completo del lazo.
  */
-export function profileForAge(ageYears: number): GlucoseProfile {
+export function profileForAge(
+  ageYears: number,
+  measuredFastingGlucose?: number,
+): GlucoseProfile {
   const aging = Math.max(0, ageYears - 30);
   const sensitivityFactor = clamp(1 - aging * 0.005, 0.35, 1.05);
   return {
     insulinSensitivity: INSULIN_SENSITIVITY_REF * sensitivityFactor,
-    fastingGlucose: 88 + aging * 0.1,
+    fastingGlucose: measuredFastingGlucose ?? 88 + aging * 0.1,
     basalInsulin: 9 + aging * 0.03,
   };
 }
@@ -126,8 +135,10 @@ export function simulateMeal(opts: {
   ageYears: number;
   carbsGrams: number;
   durationMin?: number;
+  /** Glucosa de ayuno medida (mg/dL); ancla el modelo en datos reales. */
+  measuredFastingGlucose?: number;
 }): MealResponse {
-  const profile = profileForAge(opts.ageYears);
+  const profile = profileForAge(opts.ageYears, opts.measuredFastingGlucose);
   const durationMin = opts.durationMin ?? 240;
   const dt = 0.5;
   const stepsPerMinute = Math.round(1 / dt);
