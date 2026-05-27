@@ -87,6 +87,12 @@ resource "aws_iam_role_policy" "admin_server_data_api" {
           "cognito-idp:ListUsers"
         ]
         Resource = aws_cognito_user_pool.platform.arn
+      },
+      {
+        # Encolar corridas del simulador (R2.3c — módulo simulator-control).
+        Effect   = "Allow"
+        Action   = ["sqs:SendMessage"]
+        Resource = aws_sqs_queue.simulator_jobs.arn
       }
     ]
   })
@@ -117,6 +123,10 @@ resource "aws_lambda_function" "admin_server" {
       HAS_DB_CLUSTER_ARN = local.has_db_cluster_arn
       HAS_DB_SECRET_ARN  = local.has_db_secret_arn
       HAS_DB_NAME        = "has_platform"
+
+      # Cola SQS del simulador (R2.3c) — has-admin encola las corridas que
+      # procesa el worker en ECS Fargate (módulo simulator-control).
+      HAS_SIM_QUEUE_URL = aws_sqs_queue.simulator_jobs.url
 
       # Citizen-vault uploads (S7.3) — bucket S3 + CMK KMS dedicados
       HAS_VAULT_BUCKET      = aws_s3_bucket.vault_uploads.bucket
