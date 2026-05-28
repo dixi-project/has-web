@@ -93,6 +93,21 @@ resource "aws_iam_role_policy" "admin_server_data_api" {
         Effect   = "Allow"
         Action   = ["sqs:SendMessage"]
         Resource = aws_sqs_queue.simulator_jobs.arn
+      },
+      {
+        # Invocar modelos Bedrock para el generador de informes mensuales
+        # del collaborator-hub (S7.12-v5). El modelo concreto se inyecta
+        # via env var HAS_BEDROCK_MODEL_ID; el resource wildcard cubre
+        # foundation models + inference profiles.
+        Effect = "Allow"
+        Action = [
+          "bedrock:InvokeModel",
+          "bedrock:InvokeModelWithResponseStream"
+        ]
+        Resource = [
+          "arn:aws:bedrock:*::foundation-model/*",
+          "arn:aws:bedrock:*:*:inference-profile/*"
+        ]
       }
     ]
   })
