@@ -1,13 +1,15 @@
 #!/usr/bin/env node
-// Traduce messages/<source>.json a los locales objetivo usando Claude API.
+// Traduce messages/<source>.json a los locales objetivo usando AWS Bedrock
+// (mismo path que el resto de invocaciones LLM del proyecto: NLP redact V2,
+// monthly reports generator). Usa el inference profile us-east-1.
 //
 // Uso:
-//   ANTHROPIC_API_KEY=sk-... node scripts/translate-i18n.mjs
-//   ANTHROPIC_API_KEY=sk-... node scripts/translate-i18n.mjs --target pt,fr
-//   ANTHROPIC_API_KEY=sk-... node scripts/translate-i18n.mjs --only-missing
+//   AWS_PROFILE=dixi node scripts/translate-i18n.mjs
+//   AWS_PROFILE=dixi node scripts/translate-i18n.mjs --target pt,fr
+//   AWS_PROFILE=dixi node scripts/translate-i18n.mjs --only-missing
 //
 // Flags:
-//   --target=<csv>      Locales a generar. Por defecto: pt,fr,en
+//   --target=<csv>      Locales a generar. Por defecto: los 9 no-fuente
 //   --only-missing      Sólo traduce claves nuevas o que cambiaron (incremental)
 //   --dry-run           Imprime qué haría sin escribir archivos
 //
@@ -19,6 +21,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  BedrockRuntimeClient,
+  InvokeModelCommand,
+} from "@aws-sdk/client-bedrock-runtime";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -36,46 +42,65 @@ const DEFAULT_TARGETS = [
   "hi",
   "ar",
 ];
-const MODEL = "claude-opus-4-5";
+const MODEL = "us.anthropic.claude-sonnet-4-6";
+const AWS_REGION = process.env.AWS_REGION ?? "us-east-1";
 const BATCH_SIZE = 60;
 
 const PRESERVE_TERMS = [
   "Human Aging Simulators",
   "HAS",
-  "Human Longevity Operating System",
-  "Longevity Node",
-  "Stripe",
-  "OpenCollective",
-  "GitHub Sponsors",
-  "GitHub",
-  "bioRxiv",
-  "Zenodo",
-  "PubMed",
-  "NHANES",
-  "UK Biobank",
-  "UN WPP",
-  "HMD",
-  "IHME",
-  "Eurostat",
-  "World Bank",
-  "AWS",
-  "AWS SES",
-  "Claude",
-  "GPT",
-  "MCP",
+  "HAS+LIFE",
+  "FHIR",
+  "OMOP",
+  "OMOP CDM",
+  "LOINC",
+  "SNOMED",
+  "RxNorm",
+  "ICD-10",
+  "UCUM",
+  "PHQ-9",
+  "GAD-7",
+  "PSS-10",
+  "DSR",
+  "GDPR",
+  "HIPAA",
+  "LGPD",
+  "LFPDPPP",
+  "MFA",
+  "TOTP",
+  "RBAC",
+  "k-anonymity",
+  "DOI",
+  "DICOM",
+  "PDF",
+  "CSV",
+  "JSON",
   "API",
-  "DEXA",
-  "MRI",
-  "NAD+",
-  "CC-BY",
-  "MIT",
-  "Apache",
-  "MIT/Apache",
-  "ML/IA",
+  "URL",
+  "S3",
+  "KMS",
+  "AWS",
+  "Cognito",
+  "Aurora",
+  "Bedrock",
+  "Semantic Scholar",
+  "ORCID",
+  "Zenodo",
+  "Stripe",
+  "Bergman",
+  "ATP",
+  "ROS",
+  "IL-6",
+  "TNF-α",
+  "CRP",
+  "FEV1",
+  "FVC",
+  "eGFR",
+  "HbA1c",
+  "ATC",
+  "Claude",
   "V1",
   "V2",
-  "Pre-V1",
-  "Yamanaka",
 ];
 
 const LOCALE_LABEL = {
@@ -110,10 +135,11 @@ const targets = targetArg
 const onlyMissing = args.includes("--only-missing");
 const dryRun = args.includes("--dry-run");
 
-if (!process.env.ANTHROPIC_API_KEY && !dryRun) {
-  console.error("Falta ANTHROPIC_API_KEY en el entorno.");
-  process.exit(1);
-}
+// Las credenciales AWS se resuelven del entorno estándar: AWS_PROFILE +
+// ~/.aws/credentials, o variables AWS_ACCESS_KEY_ID/SECRET_ACCESS_KEY.
+const bedrock = dryRun
+  ? null
+  : new BedrockRuntimeClient({ region: AWS_REGION });
 
 // ---------- flatten / unflatten ----------
 function flatten(obj, prefix = "", out = {}) {
@@ -183,25 +209,46 @@ function unflatten(map) {
 
 // ---------- API ----------
 async function callClaude(messages) {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-api-key": process.env.ANTHROPIC_API_KEY,
-      "anthropic-version": "2023-06-01",
-    },
+  // Bedrock InvokeModel — payload "anthropic-claude-messages" estándar.
+  const command = new InvokeModelCommand({
+    modelId: MODEL,
+    contentType: "application/json",
+    accept: "application/json",
     body: JSON.stringify({
-      model: MODEL,
+      anthropic_version: "bedrock-2023-05-31",
       max_tokens: 16000,
       messages,
     }),
   });
-  if (!res.ok) {
-    const body = await res.text();
-    throw new Error(`Claude API ${res.status}: ${body}`);
-  }
-  const data = await res.json();
+  const res = await bedrock.send(command);
+  const data = JSON.parse(new TextDecoder().decode(res.body));
   return data.content?.[0]?.text ?? "";
+}
+
+/**
+ * Repara un JSON line-based donde el modelo dejó comillas dobles ASCII
+ * sin escapar dentro de un VALUE string. Asume el formato canónico de
+ * `JSON.stringify(obj, null, 2)`:
+ *     "  \"key\": \"value\"[,]"
+ * Para cada línea, identifica el primer `"` post-`: ` (apertura del value)
+ * y el último `"` antes de `,` / fin-de-línea (cierre del value); escapa
+ * cualquier `"` intermedia. NO toca líneas estructurales (`{`, `}`, etc.).
+ */
+function repairJsonLineBased(raw) {
+  const lines = raw.split(/\r?\n/);
+  const out = [];
+  for (const line of lines) {
+    const m = line.match(/^(\s*"[^"]+":\s*)"(.*)"(,?)\s*$/);
+    if (!m) {
+      out.push(line);
+      continue;
+    }
+    const [, prefix, body, comma] = m;
+    // Escapamos cada " ASCII no-escapada dentro del body.
+    const fixed = body.replace(/(?<!\\)"/g, '\\"');
+    out.push(`${prefix}"${fixed}"${comma}`);
+  }
+  return out.join("\n");
 }
 
 function extractJson(text) {
@@ -210,7 +257,18 @@ function extractJson(text) {
   const start = raw.indexOf("{");
   const end = raw.lastIndexOf("}");
   if (start < 0 || end < 0) throw new Error("Sin JSON en respuesta");
-  return JSON.parse(raw.slice(start, end + 1));
+  const slice = raw.slice(start, end + 1);
+  try {
+    return JSON.parse(slice);
+  } catch (firstErr) {
+    // Intento de reparación line-based para el caso típico de comillas
+    // dobles ASCII no escapadas dentro de un value (ver prompt JSON SAFETY).
+    try {
+      return JSON.parse(repairJsonLineBased(slice));
+    } catch {
+      throw firstErr;
+    }
+  }
 }
 
 async function translateBatch(entries, targetLocale) {
@@ -232,6 +290,7 @@ async function translateBatch(entries, targetLocale) {
     `- Preserve emoji, em-dashes (—), middle dots (·), arrows (→) and HTML-like punctuation.`,
     `- Do not add or remove keys. Do not add commentary. Do not wrap in code fences.`,
     `- For RTL languages (ar), do not add markup — just translate.`,
+    `- CRITICAL JSON SAFETY: inside string VALUES, do NOT use ANY of these characters: " (U+0022), „ (U+201E), " (U+201C), " (U+201D). If the source text quotes a UI element name like "Manage consents", do not include quotation marks in your translation — just write the name verbatim (e.g. German "diese unter Einwilligungen verwalten" without quotes). For dialogue or emphasis, use single quotes (' apostrophe U+0027) or guillemets «» (U+00AB / U+00BB) — but apostrophes and guillemets are also discouraged. The ONLY double quotes allowed in your output are the JSON delimiters around keys and around values.`,
     ``,
     `Input JSON:`,
     "```json",
@@ -241,16 +300,32 @@ async function translateBatch(entries, targetLocale) {
     `Return only the translated JSON object.`,
   ].join("\n");
 
-  const text = await callClaude([{ role: "user", content: prompt }]);
-  const translated = extractJson(text);
-
-  // sanity: keys must match
-  for (const [k] of entries) {
-    if (!(k in translated)) {
-      console.warn(`  [warn] missing key in translation: ${k}`);
+  // Retry hasta 3 veces si JSON.parse falla (típicamente comillas dobles
+  // ASCII no escapadas en el cuerpo). Cada retry refuerza la regla de JSON.
+  let lastErr;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    const messages = [{ role: "user", content: prompt }];
+    if (attempt > 1) {
+      messages.push({
+        role: "user",
+        content: `Your previous response was not valid JSON: ${lastErr?.message}. Reproduce the same translation but ensure no unescaped " characters appear inside string values — replace any such with the target language's typographic quotes (German „...", French «...», etc.).`,
+      });
+    }
+    try {
+      const text = await callClaude(messages);
+      const translated = extractJson(text);
+      for (const [k] of entries) {
+        if (!(k in translated)) {
+          console.warn(`  [warn] missing key in translation: ${k}`);
+        }
+      }
+      return translated;
+    } catch (err) {
+      lastErr = err;
+      if (attempt < 3) process.stdout.write(`(retry ${attempt + 1}) `);
     }
   }
-  return translated;
+  throw lastErr;
 }
 
 // ---------- main ----------
@@ -323,7 +398,7 @@ for (const locale of targets) {
   const result = unflatten(mergedFlat);
   result.$meta = {
     sourceLocale: SOURCE_LOCALE,
-    translatedBy: `claude/${MODEL}`,
+    translatedBy: `bedrock/${MODEL}`,
     translatedAt: new Date().toISOString(),
     needsHumanReview: true,
     placeholder: false,

@@ -1,10 +1,4 @@
 {
-  "$meta": {
-    "sourceLocale": "es",
-    "translatedBy": "claude-opus-4-7",
-    "needsHumanReview": true,
-    "placeholder": false
-  },
   "Site": {
     "name": "Human Aging Simulators",
     "shortName": "HAS",
@@ -735,5 +729,74 @@
       "body": "越多人匿名贡献自己的健康数据，这个数字人就越真实。这正是 HAS 背后的公民科学。",
       "button": "了解如何参与"
     }
+  },
+  "PrivacyPage": {
+    "metaTitle": "隐私政策 — Human Aging Simulators (HAS)",
+    "metaDescription": "HAS 如何收集、存储和共享您的数据。执行摘要、您的权利以及完整法律文本链接。",
+    "eyebrow": "隐私政策",
+    "title": "您的数据，您做主",
+    "subtitle": "HAS 仅收集您主动上传至数据保险库的数据。捐助者看到的是满足 k-anonymity ≥ 10 的聚合统计数据。您始终掌握完全控制权。",
+    "draftNotice": "草稿版本 (0.1)，正待各司法管辖区法律审核。如需律师审核版本，请参阅公开代码库。",
+    "tldr": {
+      "title": "执行摘要",
+      "collect": "我们仅收集您上传至数据保险库的数据（临床、生物特征、心理、生活方式），以及最少量的账户信息（电子邮件、姓名、语言）。",
+      "why": "我们使用这些数据为您提供个人分析工具，并以聚合匿名的形式支持开放式长寿研究。",
+      "access": "只有您本人可以访问您的个人数据。运营方（super_admin）仅在有正当理由时方可访问，且所有操作均记录于审计日志。",
+      "donors": "捐助者仅能看到满足 k-anonymity ≥ 10 的聚合统计数据，绝不会访问任何个人数据。",
+      "collaborators": "协作者（研究人员）仅能看到聚合数据，或在您针对特定研究给予明确同意的情况下查看假名化数据。",
+      "encryption": "静态数据采用 AES-256 加密（AWS KMS），传输过程采用 TLS 1.3 加密。",
+      "minAge": "最低年龄要求为 18 岁。V1 不收集未成年人数据。"
+    },
+    "rights": {
+      "title": "您的权利",
+      "intro": "根据 GDPR、HIPAA、LGPD 和 LFPDPPP，您享有以下权利：",
+      "access": "访问权：以 FHIR 格式获取您数据的完整副本。",
+      "rectification": "更正权：纠正不准确的数据。",
+      "erasure": "删除权（被遗忘权）：永久删除您的数据。",
+      "portability": "可携权：以结构化格式导出您的数据。",
+      "objection": "反对权：随时撤回您的同意。",
+      "accounting": "披露记录：了解谁在何时访问了您的数据。服务水平协议：15 天内响应。",
+      "dsrLink": "您可以直接在<link>管理控制台</link>的 我的保险库 → DSR 部分行使上述所有权利。"
+    },
+    "contact": {
+      "title": "如何联系我们",
+      "body": "如有任何隐私问题或需在应用外提交 DSR 请求，请发送邮件至 <mail>privacy@haslife.org</mail>，或使用<form>联系表单</form>。"
+    },
+    "full": {
+      "title": "完整法律版本",
+      "body": "按司法管辖区审核的版本（LFPDPPP/HIPAA/GDPR/LGPD）存放于公开代码库：<link>privacy-policy.es.md</link>。本摘要经过优化以便阅读，完整文档为具有法律约束力的参考依据。"
+    },
+    "version": "版本 {version} — 最后更新于 {date}"
+  },
+  "LicensesPage": {
+    "metaTitle": "许可证 — Human Aging Simulators (HAS)",
+    "metaDescription": "HAS 的代码、文档、数据集及核心依赖项许可证。从端到端全面开源。",
+    "eyebrow": "许可证",
+    "title": "从端到端全面开源",
+    "subtitle": "HAS 的代码、文档和数据集在设计上即为开放。以下是各层级的具体许可证以及我们的主要依赖项。",
+    "code": {
+      "title": "代码",
+      "body": "HAS 的所有代码均采用 MIT 许可证。完整条款请参阅公开代码库中的<link>LICENSE 文件</link>。"
+    },
+    "docs": {
+      "title": "文档",
+      "body": "文档（SDD 规范、ADR、指南）采用 <link>Creative Commons CC-BY 4.0</link> 许可证。您可以在注明出处的前提下自由复制、修改和再发布。"
+    },
+    "data": {
+      "title": "数据集",
+      "body": "我们发布于 Zenodo 或 DOI 的聚合数据集将遵循 <link>Creative Commons CC-BY 4.0</link> 许可证。个人数据绝不会被再发布。"
+    },
+    "deps": {
+      "title": "主要依赖项",
+      "intro": "我们对开源生态系统深表感谢。我们的核心依赖项如下：",
+      "note": "此列表并不详尽。如需完整清单，请在代码库中运行 pnpm licenses list 命令查看。"
+    }
+  },
+  "$meta": {
+    "sourceLocale": "es",
+    "translatedBy": "bedrock/us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-05-28T16:29:57.352Z",
+    "needsHumanReview": true,
+    "placeholder": false
   }
 }

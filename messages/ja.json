@@ -1,10 +1,4 @@
 {
-  "$meta": {
-    "sourceLocale": "es",
-    "translatedBy": "claude-opus-4-7",
-    "needsHumanReview": true,
-    "placeholder": false
-  },
   "Site": {
     "name": "Human Aging Simulators",
     "shortName": "HAS",
@@ -735,5 +729,74 @@
       "body": "より多くの人が匿名で健康データを提供するほど、デジタルヒューマンはより忠実になります。それが HAS を支える市民科学です。",
       "button": "参加方法を見る"
     }
+  },
+  "PrivacyPage": {
+    "metaTitle": "プライバシーポリシー — Human Aging Simulators (HAS)",
+    "metaDescription": "HAS におけるデータの収集・保存・共有の方法。エグゼクティブサマリー、あなたの権利、および完全な法的文書へのリンク。",
+    "eyebrow": "プライバシーポリシー",
+    "title": "あなたのデータ、あなたのコントロール",
+    "subtitle": "HAS はあなたがボールトにアップロードすることを選んだデータのみを収集します。ドナーは k-anonymity ≥ 10 の集計統計のみを参照できます。コントロールは常にあなたの手の中に。",
+    "draftNotice": "バージョン 0.1 ドラフト — 法域ごとの法的レビュー待ちです。弁護士による監査済みバージョンは公開リポジトリをご覧ください。",
+    "tldr": {
+      "title": "エグゼクティブサマリー",
+      "collect": "収集するのは、あなたがボールトにアップロードしたデータ（臨床、バイオメトリクス、心理、ライフスタイル）と、アカウントの最小限の情報（メールアドレス、名前、言語）のみです。",
+      "why": "それらは、個人分析ツールの提供と、集計・匿名化された形式での長寿に関するオープンリサーチのために使用します。",
+      "access": "個人データにアクセスできるのはあなただけです。オペレーター（super_admin）は正当な理由がある場合のみアクセスでき、監査ログに記録されます。",
+      "donors": "ドナーが参照できるのは k-anonymity ≥ 10 の集計統計のみです。個人データへのアクセスは一切ありません。",
+      "collaborators": "コラボレーター（研究者）は集計データのみ、または研究ごとに特定の同意をいただいた場合は仮名化データを参照できます。",
+      "encryption": "保存時は AES-256 暗号化（AWS KMS）、転送時は TLS 1.3 を使用しています。",
+      "minAge": "最低利用年齢は 18 歳です。V1 では未成年のデータは収集しません。"
+    },
+    "rights": {
+      "title": "あなたの権利",
+      "intro": "GDPR、HIPAA、LGPD、LFPDPPP のもと、あなたには以下の権利があります：",
+      "access": "アクセス権：FHIR 形式でデータの完全なコピーを取得できます。",
+      "rectification": "訂正権：不正確なデータを修正できます。",
+      "erasure": "削除権（忘れられる権利）：データの永久削除を求めることができます。",
+      "portability": "ポータビリティ権：構造化された形式でデータをエクスポートできます。",
+      "objection": "異議申し立て権：いつでも同意を撤回できます。",
+      "accounting": "開示の記録：誰がいつアクセスしたかを確認できます。SLA：15 日以内。",
+      "dsrLink": "これらの権利はすべて、<link>管理コンソール</link> のマイボールト → DSR セクションから直接行使できます。"
+    },
+    "contact": {
+      "title": "お問い合わせ方法",
+      "body": "プライバシーに関するご質問やアプリ外での DSR リクエストは、<mail>privacy@haslife.org</mail> までメールでご連絡いただくか、<form>お問い合わせフォーム</form> をご利用ください。"
+    },
+    "full": {
+      "title": "完全な法的バージョン",
+      "body": "法域別（LFPDPPP／HIPAA／GDPR／LGPD）の監査済みバージョンは公開リポジトリにあります：<link>privacy-policy.es.md</link>。このサマリーは読みやすさのために最適化されており、完全な文書が法的拘束力のある参照文書です。"
+    },
+    "version": "バージョン {version} — 最終更新日 {date}"
+  },
+  "LicensesPage": {
+    "metaTitle": "ライセンス — Human Aging Simulators (HAS)",
+    "metaDescription": "HAS のコード、ドキュメント、データセット、および主要依存関係のライセンス。エンドツーエンドのオープンソース。",
+    "eyebrow": "ライセンス",
+    "title": "エンドツーエンドのオープンソース",
+    "subtitle": "HAS のコード、ドキュメント、データセットは設計上オープンです。各レイヤーの具体的なライセンスと主要な依存関係をこちらでご確認いただけます。",
+    "code": {
+      "title": "コード",
+      "body": "HAS のすべてのコードは MIT ライセンスのもとで提供されています。完全な条件については、公開リポジトリの <link>LICENSE ファイル</link> をご覧ください。"
+    },
+    "docs": {
+      "title": "ドキュメント",
+      "body": "ドキュメント（SDD 仕様、ADR、ガイド）は <link>Creative Commons CC-BY 4.0</link> のもとで提供されています。帰属表示を行うことで、コピー・修正・再配布が可能です。"
+    },
+    "data": {
+      "title": "データセット",
+      "body": "Zenodo または DOI で公開する集計データセットは <link>Creative Commons CC-BY 4.0</link> に従います。個人データが再配布されることは一切ありません。"
+    },
+    "deps": {
+      "title": "主要依存関係",
+      "intro": "オープンソースエコシステムに感謝します。コア依存関係は以下のとおりです：",
+      "note": "これは網羅的なリストではありません。完全なインベントリは、リポジトリで pnpm licenses list コマンドをご確認ください。"
+    }
+  },
+  "$meta": {
+    "sourceLocale": "es",
+    "translatedBy": "bedrock/us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-05-28T16:29:34.612Z",
+    "needsHumanReview": true,
+    "placeholder": false
   }
 }

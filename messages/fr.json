@@ -1,10 +1,4 @@
 {
-  "$meta": {
-    "sourceLocale": "es",
-    "translatedBy": "claude-opus-4-7",
-    "needsHumanReview": true,
-    "placeholder": false
-  },
   "Site": {
     "name": "Human Aging Simulators",
     "shortName": "HAS",
@@ -735,5 +729,74 @@
       "body": "Plus de personnes partagent leurs données de santé de façon anonyme, plus l'humain numérique gagne en fidélité. C'est la science citoyenne derrière HAS.",
       "button": "Voir comment participer"
     }
+  },
+  "PrivacyPage": {
+    "metaTitle": "Politique de confidentialité — Human Aging Simulators (HAS)",
+    "metaDescription": "Comment nous collectons, stockons et partageons vos données sur HAS. Résumé exécutif, vos droits et lien vers le texte légal complet.",
+    "eyebrow": "Politique de confidentialité",
+    "title": "Vos données, votre contrôle",
+    "subtitle": "HAS collecte uniquement les données que vous choisissez de déposer dans votre coffre. Les donateurs voient des statistiques agrégées avec k-anonymity ≥ 10. Vous ne perdez jamais le contrôle.",
+    "draftNotice": "Version brouillon (0.1) en attente de révision juridique par juridiction. Pour la version auditée par des juristes, consulter le dépôt public.",
+    "tldr": {
+      "title": "Résumé exécutif",
+      "collect": "Nous collectons uniquement les données que vous déposez dans votre coffre (cliniques, biométriques, psychologiques, mode de vie) ainsi que les données minimales de compte (e-mail, nom, langue).",
+      "why": "Nous les utilisons pour vous offrir des outils d'analyse personnelle et pour la recherche ouverte sur la longévité, sous forme agrégée et anonymisée.",
+      "access": "Vous seul accédez à vos données individuelles. L'opérateur (super_admin) y accède uniquement sur justification documentée et toute action est enregistrée dans l'audit.",
+      "donors": "Les donateurs ne voient que des statistiques agrégées avec k-anonymity ≥ 10. Ils n'accèdent JAMAIS aux données individuelles.",
+      "collaborators": "Les collaborateurs (chercheurs) ne voient que des agrégats, ou des données pseudonymisées si vous avez donné un consentement spécifique par étude.",
+      "encryption": "Chiffrement AES-256 au repos (AWS KMS), TLS 1.3 en transit.",
+      "minAge": "Âge minimum 18 ans. Nous ne collectons pas de données de mineurs en V1."
+    },
+    "rights": {
+      "title": "Vos droits",
+      "intro": "En vertu du GDPR, de HIPAA, de LGPD et de LFPDPPP, vous avez le droit à :",
+      "access": "Accès : obtenir une copie complète de vos données au format FHIR.",
+      "rectification": "Rectification : corriger les données inexactes.",
+      "erasure": "Effacement (droit à l'oubli) : suppression permanente de vos données.",
+      "portability": "Portabilité : exporter vos données dans un format structuré.",
+      "objection": "Opposition : retirer votre consentement à tout moment.",
+      "accounting": "Traçabilité des accès : savoir qui a consulté vos données et quand. SLA : 15 jours.",
+      "dsrLink": "Vous pouvez exercer tous ces droits directement depuis la <link>console d'administration</link> dans la section Mon coffre → DSR."
+    },
+    "contact": {
+      "title": "Comment nous contacter",
+      "body": "Pour toute question relative à la confidentialité ou toute demande DSR en dehors de l'application, écrivez-nous à <mail>privacy@haslife.org</mail> ou utilisez le <form>formulaire de contact</form>."
+    },
+    "full": {
+      "title": "Version légale complète",
+      "body": "La version auditée par juridiction (LFPDPPP/HIPAA/GDPR/LGPD) est disponible dans le dépôt public : <link>privacy-policy.es.md</link>. Ce résumé est optimisé pour la lecture ; le document complet constitue la référence juridique contraignante."
+    },
+    "version": "Version {version} — dernière mise à jour {date}"
+  },
+  "LicensesPage": {
+    "metaTitle": "Licences — Human Aging Simulators (HAS)",
+    "metaDescription": "Licences du code, de la documentation, des jeux de données et des dépendances clés de HAS. Open source de bout en bout.",
+    "eyebrow": "Licences",
+    "title": "Open source de bout en bout",
+    "subtitle": "Le code, la documentation et les jeux de données de HAS sont ouverts par conception. Voici les licences spécifiques de chaque couche ainsi que nos principales dépendances.",
+    "code": {
+      "title": "Code",
+      "body": "Tout le code de HAS est sous licence MIT. Consultez le <link>fichier LICENSE</link> du dépôt public pour les termes complets."
+    },
+    "docs": {
+      "title": "Documentation",
+      "body": "La documentation (specs SDD, ADRs, guides) est sous licence <link>Creative Commons CC-BY 4.0</link>. Vous pouvez la copier, la modifier et la redistribuer avec attribution."
+    },
+    "data": {
+      "title": "Jeux de données",
+      "body": "Les jeux de données agrégés que nous publions sur Zenodo ou DOI suivront la licence <link>Creative Commons CC-BY 4.0</link>. Les données personnelles individuelles ne sont jamais redistribuées."
+    },
+    "deps": {
+      "title": "Dépendances principales",
+      "intro": "Nous remercions l'écosystème open source. Nos dépendances principales :",
+      "note": "Liste non exhaustive. Pour l'inventaire complet, consulter la commande pnpm licenses list dans le dépôt."
+    }
+  },
+  "$meta": {
+    "sourceLocale": "es",
+    "translatedBy": "bedrock/us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-05-28T16:28:06.686Z",
+    "needsHumanReview": true,
+    "placeholder": false
   }
 }
