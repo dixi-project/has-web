@@ -76,6 +76,36 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   const messages = await getMessages();
 
+  const tSite = await getTranslations({ locale, namespace: "Site" });
+  const tHero = await getTranslations({ locale, namespace: "Hero" });
+
+  // Schema.org JSON-LD: Organization (entidad HAS) + WebSite (este sitio).
+  // Inyectado a nivel de layout para que aparezca en todas las páginas
+  // (Google reco para crawler discovery + sitelinks). Las URLs alternates
+  // por idioma ya viven en los <link rel="alternate" hreflang> que produce
+  // `generateMetadata`.
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: tSite("name"),
+      url: "https://haslife.org",
+      logo: "https://haslife.org/favicon.ico",
+      sameAs: [
+        "https://github.com/dixi-project",
+        "https://github.com/dixi-project/sys_has",
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: tSite("name"),
+      url: `https://haslife.org/${locale}/`,
+      inLanguage: locale,
+      description: tHero("subtitle"),
+    },
+  ];
+
   return (
     <html
       lang={locale}
@@ -83,6 +113,10 @@ export default async function LocaleLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
