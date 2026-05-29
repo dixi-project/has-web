@@ -69,6 +69,19 @@ function handler(event) {
 
   var lastSlash = uri.lastIndexOf("/");
   var lastSegment = lastSlash >= 0 ? uri.substring(lastSlash + 1) : uri;
+
+  // Next.js Metadata API genera archivos sin extensión para OG/Twitter
+  // images (`opengraph-image`, `twitter-image`). Son blobs PNG reales en
+  // S3; no debemos reescribir su URI a `/index.html`.
+  if (
+    lastSegment === "opengraph-image" ||
+    lastSegment === "twitter-image" ||
+    lastSegment === "icon" ||
+    lastSegment === "apple-icon"
+  ) {
+    return request;
+  }
+
   if (lastSegment.indexOf(".") < 0) {
     request.uri = uri + "/index.html";
     return request;

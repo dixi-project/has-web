@@ -57,6 +57,18 @@ aws s3 sync out/ "s3://$BUCKET/" \
   --content-type "application/json; charset=utf-8" \
   --cache-control "public,max-age=300,s-maxage=3600"
 
+echo "→ Syncing OG/Twitter images (image/png, sin extensión) ..."
+# Next.js Metadata API genera `opengraph-image` y `twitter-image` como
+# PNGs sin extensión. El sync por defecto les pone octet-stream — los
+# forzamos a image/png para que CloudFront/navegadores los reconozcan.
+aws s3 sync out/ "s3://$BUCKET/" \
+  --profile "$PROFILE" \
+  --exclude "*" \
+  --include "*/opengraph-image" \
+  --include "*/twitter-image" \
+  --content-type "image/png" \
+  --cache-control "public,max-age=86400,s-maxage=86400"
+
 echo "→ Invalidating CloudFront $DIST_ID ..."
 INV_ID=$(aws cloudfront create-invalidation \
   --distribution-id "$DIST_ID" \

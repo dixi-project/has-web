@@ -37,6 +37,11 @@ phases:
       - aws s3 sync out/ "s3://$SITE_BUCKET/" --exclude "*" --include "*.html" --content-type "text/html; charset=utf-8" --cache-control "public,max-age=0,s-maxage=300,must-revalidate"
       - echo "→ Sync JSON (cache corto)..."
       - aws s3 sync out/ "s3://$SITE_BUCKET/" --exclude "*" --include "*.json" --content-type "application/json; charset=utf-8" --cache-control "public,max-age=300,s-maxage=3600"
+      - echo "→ Sync OG/Twitter images (image/png, sin extensión)..."
+      # Next.js Metadata API genera `opengraph-image` y `twitter-image` sin
+      # extensión; el sync genérico les pone octet-stream — los forzamos a
+      # image/png para que CloudFront/navegadores los reconozcan.
+      - aws s3 sync out/ "s3://$SITE_BUCKET/" --exclude "*" --include "*/opengraph-image" --include "*/twitter-image" --content-type "image/png" --cache-control "public,max-age=86400,s-maxage=86400"
       - echo "→ Invalidando CloudFront $CF_DIST_ID..."
       - aws cloudfront create-invalidation --distribution-id "$CF_DIST_ID" --paths "/*"
       - echo "✓ Deploy completo — https://haslife.org/"
