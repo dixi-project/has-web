@@ -32,16 +32,21 @@ phases:
       # No desplegar si alguna fase anterior falló.
       - '[ "$CODEBUILD_BUILD_SUCCEEDING" = "1" ] || (echo "✗ Build falló — se aborta el deploy" && exit 1)'
       - echo "→ Sync assets (immutable, 1 año)..."
-      - aws s3 sync out/ "s3://$SITE_BUCKET/" --delete --exclude "*.html" --exclude "*.json" --cache-control "public,max-age=31536000,immutable"
+      - aws s3 sync out/ "s3://$SITE_BUCKET/" --delete --exclude "*.html" --exclude "*.json" --exclude "*/opengraph-image" --exclude "*/twitter-image" --cache-control "public,max-age=31536000,immutable"
       - echo "→ Sync HTML (sin cache)..."
       - aws s3 sync out/ "s3://$SITE_BUCKET/" --exclude "*" --include "*.html" --content-type "text/html; charset=utf-8" --cache-control "public,max-age=0,s-maxage=300,must-revalidate"
       - echo "→ Sync JSON (cache corto)..."
       - aws s3 sync out/ "s3://$SITE_BUCKET/" --exclude "*" --include "*.json" --content-type "application/json; charset=utf-8" --cache-control "public,max-age=300,s-maxage=3600"
-      - echo "→ Sync OG/Twitter images (image/png, sin extensión)..."
+      - echo "→ Subir OG/Twitter images (image/png, sin extensión)..."
       # Next.js Metadata API genera `opengraph-image` y `twitter-image` sin
-      # extensión; el sync genérico les pone octet-stream — los forzamos a
-      # image/png para que CloudFront/navegadores los reconozcan.
-      - aws s3 sync out/ "s3://$SITE_BUCKET/" --exclude "*" --include "*/opengraph-image" --include "*/twitter-image" --content-type "image/png" --cache-control "public,max-age=86400,s-maxage=86400"
+      # extensión; el sync genérico les ponía octet-stream y `sync` no
+      # re-uploadea si el contenido no cambió. Usamos `cp` explícito para
+      # forzar el upload con el content-type correcto en cada deploy.
+      - |
+        find out -type f \( -name "opengraph-image" -o -name "twitter-image" \) | while read f; do
+          key="${f#out/}"
+          aws s3 cp "$f" "s3://$SITE_BUCKET/$key" --content-type "image/png" --cache-control "public,max-age=86400,s-maxage=86400" --quiet
+        done
       - echo "→ Invalidando CloudFront $CF_DIST_ID..."
       - aws cloudfront create-invalidation --distribution-id "$CF_DIST_ID" --paths "/*"
       - echo "✓ Deploy completo — https://haslife.org/"

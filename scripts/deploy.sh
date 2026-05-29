@@ -39,6 +39,8 @@ aws s3 sync out/ "s3://$BUCKET/" \
   --delete \
   --exclude "*.html" \
   --exclude "*.json" \
+  --exclude "*/opengraph-image" \
+  --exclude "*/twitter-image" \
   --cache-control "public,max-age=31536000,immutable"
 
 echo "→ Syncing HTML (no cache) ..."
@@ -57,17 +59,17 @@ aws s3 sync out/ "s3://$BUCKET/" \
   --content-type "application/json; charset=utf-8" \
   --cache-control "public,max-age=300,s-maxage=3600"
 
-echo "→ Syncing OG/Twitter images (image/png, sin extensión) ..."
-# Next.js Metadata API genera `opengraph-image` y `twitter-image` como
-# PNGs sin extensión. El sync por defecto les pone octet-stream — los
-# forzamos a image/png para que CloudFront/navegadores los reconozcan.
-aws s3 sync out/ "s3://$BUCKET/" \
-  --profile "$PROFILE" \
-  --exclude "*" \
-  --include "*/opengraph-image" \
-  --include "*/twitter-image" \
-  --content-type "image/png" \
-  --cache-control "public,max-age=86400,s-maxage=86400"
+echo "→ Subiendo OG/Twitter images (image/png, sin extensión) ..."
+# `cp` (no sync) — sync no re-uploadea si el contenido no cambió, y la
+# primera vez quedaron como octet-stream.
+find out -type f \( -name "opengraph-image" -o -name "twitter-image" \) | while read f; do
+  key="${f#out/}"
+  aws s3 cp "$f" "s3://$BUCKET/$key" \
+    --profile "$PROFILE" \
+    --content-type "image/png" \
+    --cache-control "public,max-age=86400,s-maxage=86400" \
+    --quiet
+done
 
 echo "→ Invalidating CloudFront $DIST_ID ..."
 INV_ID=$(aws cloudfront create-invalidation \
