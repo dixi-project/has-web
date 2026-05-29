@@ -792,10 +792,57 @@
       "note": "यह सूची संपूर्ण नहीं है। पूरी सूची के लिए, रिपॉजिटरी में pnpm licenses list कमांड देखें।"
     }
   },
+  "TransparencyPage": {
+    "metaTitle": "पारदर्शिता — Human Aging Simulators (HAS)",
+    "metaDescription": "हम HAS को कैसे वित्तपोषित, संचालित और सत्यापित करते हैं। दान की स्थिति, बुनियादी ढाँचा, कानूनी इकाई और हमारा ऑडिट कैसे करें।",
+    "eyebrow": "पारदर्शिता",
+    "title": "जो कुछ भी हम करते हैं, सबके सामने",
+    "subtitle": "HAS एक open-science परियोजना है जो इसके समुदाय द्वारा वित्तपोषित है। यहाँ हमारी वास्तविक स्थिति है — बिना किसी मार्केटिंग के — ताकि कोई भी इसे सत्यापित कर सके।",
+    "principles": {
+      "title": "पारदर्शिता के हमारे सिद्धांत",
+      "openSource": "खुला स्रोत: पूरा stack (has-web, has-admin, has-simulator) MIT लाइसेंस के साथ GitHub पर उपलब्ध है।",
+      "openData": "खुला डेटा: हम जो एकत्रित datasets प्रकाशित करते हैं, वे Zenodo पर CC-BY 4.0 के अंतर्गत DOI के साथ उपलब्ध हैं।",
+      "openProcess": "खुली प्रक्रिया: हर आर्किटेक्चरल निर्णय specs repo में सार्वजनिक ADR के रूप में दर्ज है।",
+      "openFinance": "खुला वित्त: दान की स्थिति, AWS खर्च और कानूनी इकाई की योजना यहीं विस्तार से दी गई है।"
+    },
+    "donations": {
+      "title": "दान की स्थिति",
+      "statusLabel": "वर्तमान स्थिति: रोका गया",
+      "statusValue": "nonprofit कानूनी इकाई को औपचारिक रूप देने तक दान अस्थायी रूप से बंद हैं। अभी कोई भुगतान स्वीकार नहीं किया जा रहा।",
+      "body": "हमने मई 2026 में दान रोक दिए क्योंकि Stripe ने HAS को अपनी restricted businesses सूची में चिह्नित किया (परियोजना के पास कोई औपचारिक कानूनी इकाई नहीं है)। उसी दिन key अक्षम कर दी गई और `POST /donate` endpoints HTTP 500 लौटाते हैं जब तक यह बाधा हल नहीं होती। योजना: Open Source Collective में fiscal sponsor 501(c)(3) के लिए आवेदन करना और जब MRR $1k USD/माह तक पहुँचे, तब एक मैक्सिकन A.C. की स्थापना करना।",
+      "evidence": "पूरा निर्णय <adr>ADR-020 — Pause donations pending legal entity</adr> में दर्ज है।"
+    },
+    "legal": {
+      "title": "कानूनी इकाई और प्रशासन",
+      "body": "HAS वर्तमान में एक व्यक्तिगत संस्था (founder) के रूप में कार्य करता है और एक औपचारिक nonprofit इकाई की ओर अग्रसर है। अंतरिम Privacy Officer वही founder हैं; DPO की औपचारिक भूमिका तब नामित की जाएगी जब वास्तविक नागरिक उत्पादन में आएंगे। गोपनीयता नीति (v0.1-draft) अभी न्यायिक क्षेत्राधिकार के अनुसार कानूनी समीक्षा के लिए लंबित है (मेक्सिको LFPDPPP, अमेरिका HIPAA + राज्य कानून, यूरोपीय संघ GDPR, ब्राज़ील LGPD)।",
+      "evidence": "कानूनी इकाई का रोडमैप: <adr009>ADR-009 — Legal Entity Strategy</adr009>। Privacy Officer की नियुक्ति: <privacyOfficer>13-security/privacy-officer.md</privacyOfficer>।"
+    },
+    "infra": {
+      "title": "बुनियादी ढाँचा और लागत",
+      "intro": "सारा बुनियादी ढाँचा एक ही AWS खाते (खाता 712389989805, प्रोफ़ाइल dixi) में रहता है। अप्रत्याशित खर्चों से बचने के लिए लागत पर स्पष्ट अलर्ट लगाए गए हैं।",
+      "hostingLabel": "होस्टिंग",
+      "hostingValue": "AWS (S3 + CloudFront + Route53 + ACM, has-web के लिए; Lambda + API Gateway + Aurora Postgres + Cognito, has-admin के लिए; ECS Fargate scale-to-zero, has-simulator के लिए)।",
+      "budgetLabel": "बजट",
+      "budgetValue": "AWS Budgets अलर्ट $5 (चेतावनी) और $20 (गंभीर) पर। simulator की निष्क्रिय लागत: ~$0 (Fargate scale-to-zero)।",
+      "deployLabel": "परिनियोजन",
+      "deployValue": "तीनों repos (has-web, has-admin, has-simulator) के लिए AWS CodePipeline। main पर हर push स्वचालित build + test + deploy शुरू करता है।",
+      "encryptionLabel": "एन्क्रिप्शन",
+      "encryptionValue": "विश्राम में AES-256 (vault और hub के लिए समर्पित CMK के साथ AWS KMS)। ट्रांज़िट में TLS 1.3। डेटा तक किसी तृतीय पक्ष की पहुँच नहीं।"
+    },
+    "verify": {
+      "title": "यह सब कैसे सत्यापित करें",
+      "intro": "ऊपर दी गई किसी भी बात के लिए हमारे शब्दों पर भरोसा करने की ज़रूरत नहीं। सब कुछ ऑडिट किया जा सकता है:",
+      "repoLabel": "GitHub संगठन (सभी सार्वजनिक repos)",
+      "specsLabel": "SDD + ADRs + roadmap का specs repo",
+      "contactLabel": "कोई भी प्रश्न या अतिरिक्त सत्यापन",
+      "contactCta": "हमें लिखें →"
+    },
+    "updatedAt": "अंतिम अपडेट: {date}"
+  },
   "$meta": {
     "sourceLocale": "es",
     "translatedBy": "bedrock/us.anthropic.claude-sonnet-4-6",
-    "translatedAt": "2026-05-28T16:30:34.930Z",
+    "translatedAt": "2026-05-29T13:59:22.681Z",
     "needsHumanReview": true,
     "placeholder": false
   }

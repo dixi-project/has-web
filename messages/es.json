@@ -791,5 +791,52 @@
       "intro": "Agradecemos al ecosistema open source. Nuestras dependencias core:",
       "note": "Lista no exhaustiva. Para el inventario completo, ver el comando pnpm licenses list en el repositorio."
     }
+  },
+  "TransparencyPage": {
+    "metaTitle": "Transparencia — Human Aging Simulators (HAS)",
+    "metaDescription": "Cómo financiamos, gobernamos y verificamos HAS. Estado de donaciones, infraestructura, entidad legal y cómo auditarnos.",
+    "eyebrow": "Transparencia",
+    "title": "Todo lo que hacemos, a la vista",
+    "subtitle": "HAS es un proyecto open-science financiado por su comunidad. Aquí está nuestro estado real — sin marketing — para que cualquier persona pueda verificarlo.",
+    "principles": {
+      "title": "Nuestros principios de transparencia",
+      "openSource": "Código abierto: todo el stack (has-web, has-admin, has-simulator) vive en GitHub con licencia MIT.",
+      "openData": "Datos abiertos: los datasets agregados que publiquemos llevan DOI en Zenodo bajo CC-BY 4.0.",
+      "openProcess": "Proceso abierto: cada decisión arquitectónica vive como ADR público en el repo de specs.",
+      "openFinance": "Finanzas abiertas: detallamos el estado de donaciones, gastos AWS y plan de entidad legal aquí mismo."
+    },
+    "donations": {
+      "title": "Estado de donaciones",
+      "statusLabel": "Estado actual: PAUSADO",
+      "statusValue": "Las donaciones están temporalmente deshabilitadas mientras formalizamos la entidad legal nonprofit. No se acepta dinero hoy.",
+      "body": "Pausamos las donaciones en mayo de 2026 porque Stripe identificó a HAS dentro de su lista de restricted businesses (proyecto sin entidad jurídica formal). La key se deshabilitó el mismo día y los endpoints `POST /donate` devuelven HTTP 500 hasta resolver el bloqueo. Plan: aplicar a Open Source Collective como fiscal sponsor 501(c)(3) y, cuando MRR alcance $1k USD/mes, constituir una A.C. mexicana propia.",
+      "evidence": "Decisión completa documentada en <adr>ADR-020 — Pause donations pending legal entity</adr>."
+    },
+    "legal": {
+      "title": "Entidad legal y gobernanza",
+      "body": "HAS opera como persona física (founder) en transición hacia una entidad nonprofit formal. El Privacy Officer interino es el mismo founder; el rol formal de DPO se designará cuando entren citizens reales en producción. La política de privacidad (v0.1-draft) está pendiente de revisión legal por jurisdicción (México LFPDPPP, EE. UU. HIPAA + leyes estatales, UE GDPR, Brasil LGPD).",
+      "evidence": "Roadmap de entidad legal: <adr009>ADR-009 — Legal Entity Strategy</adr009>. Designación de Privacy Officer: <privacyOfficer>13-security/privacy-officer.md</privacyOfficer>."
+    },
+    "infra": {
+      "title": "Infraestructura y costos",
+      "intro": "Toda la infra vive en una sola cuenta AWS (cuenta 712389989805, perfil dixi). Los costos están bajo alertas explícitas para evitar sorpresas.",
+      "hostingLabel": "Hosting",
+      "hostingValue": "AWS (S3 + CloudFront + Route53 + ACM para has-web; Lambda + API Gateway + Aurora Postgres + Cognito para has-admin; ECS Fargate scale-to-zero para has-simulator).",
+      "budgetLabel": "Presupuesto",
+      "budgetValue": "Alertas AWS Budgets en $5 (warning) y $20 (crítico). Costo en reposo del simulador: ~$0 (Fargate scale-to-zero).",
+      "deployLabel": "Despliegue",
+      "deployValue": "AWS CodePipeline para los 3 repos (has-web, has-admin, has-simulator). Cada push a main dispara build + test + deploy automático.",
+      "encryptionLabel": "Cifrado",
+      "encryptionValue": "AES-256 en reposo (AWS KMS con CMK dedicadas para vault y hub). TLS 1.3 en tránsito. Sin terceros con acceso a datos."
+    },
+    "verify": {
+      "title": "Cómo verificar todo esto",
+      "intro": "Nada de lo de arriba requiere confiar en nuestra palabra. Todo se puede auditar:",
+      "repoLabel": "Organización GitHub (todos los repos públicos)",
+      "specsLabel": "Repo de specs SDD + ADRs + roadmap",
+      "contactLabel": "Cualquier pregunta o verificación adicional",
+      "contactCta": "Escríbenos →"
+    },
+    "updatedAt": "Última actualización: {date}"
   }
 }

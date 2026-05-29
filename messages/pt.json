@@ -792,10 +792,57 @@
       "note": "Lista não exaustiva. Para o inventário completo, consulte o comando pnpm licenses list no repositório."
     }
   },
+  "TransparencyPage": {
+    "metaTitle": "Transparência — Human Aging Simulators (HAS)",
+    "metaDescription": "Como financiamos, governamos e verificamos o HAS. Status de doações, infraestrutura, entidade legal e como nos auditar.",
+    "eyebrow": "Transparência",
+    "title": "Tudo o que fazemos, à vista de todos",
+    "subtitle": "HAS é um projeto open-science financiado pela sua comunidade. Aqui está nosso estado real — sem marketing — para que qualquer pessoa possa verificá-lo.",
+    "principles": {
+      "title": "Nossos princípios de transparência",
+      "openSource": "Código aberto: toda a stack (has-web, has-admin, has-simulator) vive no GitHub com licença MIT.",
+      "openData": "Dados abertos: os datasets agregados que publicarmos terão DOI no Zenodo sob CC-BY 4.0.",
+      "openProcess": "Processo aberto: cada decisão arquitetural vive como ADR público no repositório de specs.",
+      "openFinance": "Finanças abertas: detalhamos o status de doações, gastos AWS e plano de entidade legal aqui mesmo."
+    },
+    "donations": {
+      "title": "Status de doações",
+      "statusLabel": "Status atual: PAUSADO",
+      "statusValue": "As doações estão temporariamente desabilitadas enquanto formalizamos a entidade legal nonprofit. Não aceitamos dinheiro no momento.",
+      "body": "Pausamos as doações em maio de 2026 porque o Stripe identificou o HAS dentro de sua lista de restricted businesses (projeto sem entidade jurídica formal). A chave foi desabilitada no mesmo dia e os endpoints `POST /donate` retornam HTTP 500 até que o bloqueio seja resolvido. Plano: aplicar ao Open Source Collective como fiscal sponsor 501(c)(3) e, quando o MRR atingir $1k USD/mês, constituir uma A.C. mexicana própria.",
+      "evidence": "Decisão completa documentada em <adr>ADR-020 — Pause donations pending legal entity</adr>."
+    },
+    "legal": {
+      "title": "Entidade legal e governança",
+      "body": "HAS opera como pessoa física (founder) em transição para uma entidade nonprofit formal. O Privacy Officer interino é o próprio founder; o papel formal de DPO será designado quando cidadãos reais entrarem em produção. A política de privacidade (v0.1-draft) está pendente de revisão legal por jurisdição (México LFPDPPP, EUA HIPAA + leis estaduais, UE GDPR, Brasil LGPD).",
+      "evidence": "Roadmap de entidade legal: <adr009>ADR-009 — Legal Entity Strategy</adr009>. Designação de Privacy Officer: <privacyOfficer>13-security/privacy-officer.md</privacyOfficer>."
+    },
+    "infra": {
+      "title": "Infraestrutura e custos",
+      "intro": "Toda a infraestrutura vive em uma única conta AWS (conta 712389989805, perfil dixi). Os custos estão sob alertas explícitos para evitar surpresas.",
+      "hostingLabel": "Hospedagem",
+      "hostingValue": "AWS (S3 + CloudFront + Route53 + ACM para has-web; Lambda + API Gateway + Aurora Postgres + Cognito para has-admin; ECS Fargate scale-to-zero para has-simulator).",
+      "budgetLabel": "Orçamento",
+      "budgetValue": "Alertas AWS Budgets em $5 (aviso) e $20 (crítico). Custo em repouso do simulador: ~$0 (Fargate scale-to-zero).",
+      "deployLabel": "Implantação",
+      "deployValue": "AWS CodePipeline para os 3 repositórios (has-web, has-admin, has-simulator). Cada push para main aciona build + test + deploy automático.",
+      "encryptionLabel": "Criptografia",
+      "encryptionValue": "AES-256 em repouso (AWS KMS com CMKs dedicadas para vault e hub). TLS 1.3 em trânsito. Sem terceiros com acesso aos dados."
+    },
+    "verify": {
+      "title": "Como verificar tudo isso",
+      "intro": "Nada do que está acima exige que você confie em nossa palavra. Tudo pode ser auditado:",
+      "repoLabel": "Organização GitHub (todos os repositórios públicos)",
+      "specsLabel": "Repositório de specs SDD + ADRs + roadmap",
+      "contactLabel": "Qualquer dúvida ou verificação adicional",
+      "contactCta": "Escreva para nós →"
+    },
+    "updatedAt": "Última atualização: {date}"
+  },
   "$meta": {
     "sourceLocale": "es",
     "translatedBy": "bedrock/us.anthropic.claude-sonnet-4-6",
-    "translatedAt": "2026-05-28T16:27:49.918Z",
+    "translatedAt": "2026-05-29T13:56:54.601Z",
     "needsHumanReview": true,
     "placeholder": false
   }

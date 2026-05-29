@@ -33,7 +33,7 @@ export async function SiteFooter({ locale }: Props) {
     {
       title: t("sectionLegal"),
       links: [
-        { href: `/${locale}/#transparency`, label: t("linkTransparency") },
+        { href: `/${locale}/transparency/`, label: t("linkTransparency") },
         { href: `/${locale}/privacy/`, label: t("linkPrivacy") },
         { href: `/${locale}/licenses/`, label: t("linkLicenses") },
         {

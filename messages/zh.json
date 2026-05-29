@@ -792,10 +792,57 @@
       "note": "此列表并不详尽。如需完整清单，请在代码库中运行 pnpm licenses list 命令查看。"
     }
   },
+  "TransparencyPage": {
+    "metaTitle": "透明度 — Human Aging Simulators (HAS)",
+    "metaDescription": "我们如何为 HAS 提供资金、治理与验证。捐款状态、基础设施、法律实体及审计方式。",
+    "eyebrow": "透明度",
+    "title": "我们所做的一切，公开可见",
+    "subtitle": "HAS 是一个由社区资助的开放科学项目。这里是我们真实的现状——没有任何营销包装——任何人都可以自行核实。",
+    "principles": {
+      "title": "我们的透明度原则",
+      "openSource": "开源代码：完整技术栈（has-web、has-admin、has-simulator）托管于 GitHub，采用 MIT 许可证。",
+      "openData": "开放数据：我们发布的汇总数据集均在 Zenodo 上附有 DOI，采用 CC-BY 4.0 协议。",
+      "openProcess": "开放流程：每项架构决策均以公开 ADR 的形式存档于规范仓库中。",
+      "openFinance": "开放财务：我们在此详细说明捐款状态、AWS 支出及法律实体计划。"
+    },
+    "donations": {
+      "title": "捐款状态",
+      "statusLabel": "当前状态：已暂停",
+      "statusValue": "在我们正式完成非营利法律实体注册期间，捐款功能暂时停用。目前不接受任何款项。",
+      "body": "我们于 2026 年 5 月暂停捐款，原因是 Stripe 将 HAS 列入其受限业务名单（项目尚无正式法律实体）。密钥于当日被禁用，`POST /donate` 端点在问题解决前将返回 HTTP 500。计划：申请 Open Source Collective 作为 501(c)(3) 财务担保方，并在月经常性收入达到 1,000 美元时，在墨西哥注册独立的 A.C. 实体。",
+      "evidence": "完整决策记录见 <adr>ADR-020 — Pause donations pending legal entity</adr>。"
+    },
+    "legal": {
+      "title": "法律实体与治理",
+      "body": "HAS 目前以自然人（创始人）身份运营，正向正式非营利实体过渡。临时隐私官由创始人本人担任；正式 DPO 角色将在真实用户进入生产环境后正式指定。隐私政策（v0.1-draft）正待各司法管辖区的法律审查（墨西哥 LFPDPPP、美国 HIPAA 及各州法律、欧盟 GDPR、巴西 LGPD）。",
+      "evidence": "法律实体路线图：<adr009>ADR-009 — Legal Entity Strategy</adr009>。隐私官任命：<privacyOfficer>13-security/privacy-officer.md</privacyOfficer>。"
+    },
+    "infra": {
+      "title": "基础设施与成本",
+      "intro": "所有基础设施均部署在单一 AWS 账户（账户 712389989805，配置文件 dixi）。已设置明确的费用告警，避免意外超支。",
+      "hostingLabel": "托管",
+      "hostingValue": "AWS（S3 + CloudFront + Route53 + ACM 用于 has-web；Lambda + API Gateway + Aurora Postgres + Cognito 用于 has-admin；ECS Fargate 按需缩容至零用于 has-simulator）。",
+      "budgetLabel": "预算",
+      "budgetValue": "AWS Budgets 告警阈值：$5（警告）和 $20（严重）。模拟器空闲成本：约 $0（Fargate 缩容至零）。",
+      "deployLabel": "部署",
+      "deployValue": "AWS CodePipeline 管理 3 个仓库（has-web、has-admin、has-simulator）。每次推送至 main 分支将自动触发构建 + 测试 + 部署。",
+      "encryptionLabel": "加密",
+      "encryptionValue": "静态数据采用 AES-256 加密（AWS KMS，vault 和 hub 使用专用 CMK）。传输中采用 TLS 1.3。无第三方可访问数据。"
+    },
+    "verify": {
+      "title": "如何核实以上内容",
+      "intro": "以上所有内容无需凭信任我们的话——一切均可审计：",
+      "repoLabel": "GitHub 组织（所有仓库均公开）",
+      "specsLabel": "规范仓库 SDD + ADRs + 路线图",
+      "contactLabel": "如有任何疑问或需要进一步核实",
+      "contactCta": "联系我们 →"
+    },
+    "updatedAt": "最后更新：{date}"
+  },
   "$meta": {
     "sourceLocale": "es",
     "translatedBy": "bedrock/us.anthropic.claude-sonnet-4-6",
-    "translatedAt": "2026-05-28T16:29:57.352Z",
+    "translatedAt": "2026-05-29T13:58:51.471Z",
     "needsHumanReview": true,
     "placeholder": false
   }

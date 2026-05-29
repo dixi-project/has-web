@@ -792,10 +792,57 @@
       "note": "Liste non exhaustive. Pour l'inventaire complet, consulter la commande pnpm licenses list dans le dépôt."
     }
   },
+  "TransparencyPage": {
+    "metaTitle": "Transparence — Human Aging Simulators (HAS)",
+    "metaDescription": "Comment nous finançons, gouvernons et vérifions HAS. État des dons, infrastructure, entité légale et comment nous auditer.",
+    "eyebrow": "Transparence",
+    "title": "Tout ce que nous faisons, en pleine lumière",
+    "subtitle": "HAS est un projet open-science financé par sa communauté. Voici notre état réel — sans marketing — afin que chacun puisse le vérifier.",
+    "principles": {
+      "title": "Nos principes de transparence",
+      "openSource": "Code ouvert : l'intégralité du stack (has-web, has-admin, has-simulator) est hébergée sur GitHub sous licence MIT.",
+      "openData": "Données ouvertes : les jeux de données agrégés que nous publions portent un DOI sur Zenodo sous licence CC-BY 4.0.",
+      "openProcess": "Processus ouvert : chaque décision architecturale est consignée comme ADR public dans le dépôt de specs.",
+      "openFinance": "Finances ouvertes : nous détaillons ici même l'état des dons, les dépenses AWS et le plan d'entité légale."
+    },
+    "donations": {
+      "title": "État des dons",
+      "statusLabel": "État actuel : EN PAUSE",
+      "statusValue": "Les dons sont temporairement désactivés le temps de formaliser l'entité légale à but non lucratif. Aucun paiement n'est accepté pour l'instant.",
+      "body": "Nous avons mis les dons en pause en mai 2026 car Stripe a identifié HAS dans sa liste de restricted businesses (projet sans entité juridique formelle). La clé a été désactivée le jour même et les endpoints `POST /donate` retournent HTTP 500 jusqu'à la résolution du blocage. Plan : postuler auprès d'Open Source Collective en tant que fiscal sponsor 501(c)(3) et, lorsque le MRR atteindra 1 000 USD/mois, constituer notre propre A.C. mexicaine.",
+      "evidence": "Décision complète documentée dans <adr>ADR-020 — Pause donations pending legal entity</adr>."
+    },
+    "legal": {
+      "title": "Entité légale et gouvernance",
+      "body": "HAS opère en tant que personne physique (fondateur) en transition vers une entité formelle à but non lucratif. Le Privacy Officer par intérim est le fondateur lui-même ; le rôle formel de DPO sera désigné lorsque de véritables citoyens entreront en production. La politique de confidentialité (v0.1-draft) est en attente de révision juridique par juridiction (Mexique LFPDPPP, États-Unis HIPAA + lois étatiques, UE GDPR, Brésil LGPD).",
+      "evidence": "Feuille de route de l'entité légale : <adr009>ADR-009 — Legal Entity Strategy</adr009>. Désignation du Privacy Officer : <privacyOfficer>13-security/privacy-officer.md</privacyOfficer>."
+    },
+    "infra": {
+      "title": "Infrastructure et coûts",
+      "intro": "Toute l'infrastructure réside dans un seul compte AWS (compte 712389989805, profil dixi). Les coûts sont surveillés par des alertes explicites pour éviter les mauvaises surprises.",
+      "hostingLabel": "Hébergement",
+      "hostingValue": "AWS (S3 + CloudFront + Route53 + ACM pour has-web ; Lambda + API Gateway + Aurora Postgres + Cognito pour has-admin ; ECS Fargate scale-to-zero pour has-simulator).",
+      "budgetLabel": "Budget",
+      "budgetValue": "Alertes AWS Budgets à 5 $ (avertissement) et 20 $ (critique). Coût au repos du simulateur : ~0 $ (Fargate scale-to-zero).",
+      "deployLabel": "Déploiement",
+      "deployValue": "AWS CodePipeline pour les 3 dépôts (has-web, has-admin, has-simulator). Chaque push sur main déclenche automatiquement le build + test + déploiement.",
+      "encryptionLabel": "Chiffrement",
+      "encryptionValue": "AES-256 au repos (AWS KMS avec CMK dédiées pour le vault et le hub). TLS 1.3 en transit. Aucun tiers n'a accès aux données."
+    },
+    "verify": {
+      "title": "Comment tout vérifier",
+      "intro": "Rien de ce qui précède ne nécessite de nous faire confiance sur parole. Tout est auditable :",
+      "repoLabel": "Organisation GitHub (tous les dépôts publics)",
+      "specsLabel": "Dépôt de specs SDD + ADRs + feuille de route",
+      "contactLabel": "Toute question ou vérification complémentaire",
+      "contactCta": "Écrivez-nous →"
+    },
+    "updatedAt": "Dernière mise à jour : {date}"
+  },
   "$meta": {
     "sourceLocale": "es",
     "translatedBy": "bedrock/us.anthropic.claude-sonnet-4-6",
-    "translatedAt": "2026-05-28T16:28:06.686Z",
+    "translatedAt": "2026-05-29T13:57:10.427Z",
     "needsHumanReview": true,
     "placeholder": false
   }

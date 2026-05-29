@@ -791,5 +791,52 @@
       "intro": "We thank the open source ecosystem. Our core dependencies:",
       "note": "Non-exhaustive list. For the full inventory, see the pnpm licenses list command in the repository."
     }
+  },
+  "TransparencyPage": {
+    "metaTitle": "Transparency — Human Aging Simulators (HAS)",
+    "metaDescription": "How we fund, govern, and verify HAS. Donation status, infrastructure, legal entity, and how to audit us.",
+    "eyebrow": "Transparency",
+    "title": "Everything we do, in plain sight",
+    "subtitle": "HAS is an open-science project funded by its community. Here is our real status — no marketing — so anyone can verify it.",
+    "principles": {
+      "title": "Our transparency principles",
+      "openSource": "Open code: the entire stack (has-web, has-admin, has-simulator) lives on GitHub under MIT license.",
+      "openData": "Open data: aggregated datasets we publish carry a DOI on Zenodo under CC-BY 4.0.",
+      "openProcess": "Open process: every architectural decision lives as a public ADR in the specs repo.",
+      "openFinance": "Open finance: we detail donation status, AWS spend, and legal-entity plan right here."
+    },
+    "donations": {
+      "title": "Donation status",
+      "statusLabel": "Current status: PAUSED",
+      "statusValue": "Donations are temporarily disabled while we formalize the nonprofit legal entity. No money is being accepted today.",
+      "body": "We paused donations in May 2026 because Stripe identified HAS within its restricted-businesses list (project without formal legal entity). The key was disabled the same day and `POST /donate` endpoints return HTTP 500 until the block is resolved. Plan: apply to Open Source Collective as 501(c)(3) fiscal sponsor and, once MRR reaches $1k USD/month, incorporate our own Mexican A.C.",
+      "evidence": "Full decision documented in <adr>ADR-020 — Pause donations pending legal entity</adr>."
+    },
+    "legal": {
+      "title": "Legal entity and governance",
+      "body": "HAS operates as a natural person (founder) transitioning to a formal nonprofit entity. The interim Privacy Officer is the same founder; the formal DPO role will be designated when real citizens enter production. The privacy policy (v0.1-draft) is pending legal review per jurisdiction (Mexico LFPDPPP, US HIPAA + state laws, EU GDPR, Brazil LGPD).",
+      "evidence": "Legal entity roadmap: <adr009>ADR-009 — Legal Entity Strategy</adr009>. Privacy Officer designation: <privacyOfficer>13-security/privacy-officer.md</privacyOfficer>."
+    },
+    "infra": {
+      "title": "Infrastructure and costs",
+      "intro": "All infra lives in a single AWS account (account 712389989805, dixi profile). Costs are under explicit alerts to avoid surprises.",
+      "hostingLabel": "Hosting",
+      "hostingValue": "AWS (S3 + CloudFront + Route53 + ACM for has-web; Lambda + API Gateway + Aurora Postgres + Cognito for has-admin; ECS Fargate scale-to-zero for has-simulator).",
+      "budgetLabel": "Budget",
+      "budgetValue": "AWS Budgets alerts at $5 (warning) and $20 (critical). Simulator idle cost: ~$0 (Fargate scale-to-zero).",
+      "deployLabel": "Deployment",
+      "deployValue": "AWS CodePipeline for the 3 repos (has-web, has-admin, has-simulator). Each push to main triggers automatic build + test + deploy.",
+      "encryptionLabel": "Encryption",
+      "encryptionValue": "AES-256 at rest (AWS KMS with dedicated CMKs for vault and hub). TLS 1.3 in transit. No third parties with data access."
+    },
+    "verify": {
+      "title": "How to verify all of this",
+      "intro": "None of the above requires trusting our word. Everything can be audited:",
+      "repoLabel": "GitHub organization (all public repos)",
+      "specsLabel": "SDD specs repo + ADRs + roadmap",
+      "contactLabel": "Any question or additional verification",
+      "contactCta": "Write to us →"
+    },
+    "updatedAt": "Last updated: {date}"
   }
 }

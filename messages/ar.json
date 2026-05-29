@@ -792,10 +792,57 @@
       "note": "القائمة غير شاملة. للاطلاع على الجرد الكامل، راجع الأمر pnpm licenses list في المستودع."
     }
   },
+  "TransparencyPage": {
+    "metaTitle": "الشفافية — Human Aging Simulators (HAS)",
+    "metaDescription": "كيف نموّل HAS ونديره ونتحقق منه. حالة التبرعات، والبنية التحتية، والكيان القانوني، وكيفية مراجعتنا.",
+    "eyebrow": "الشفافية",
+    "title": "كل ما نفعله، أمام أعينكم",
+    "subtitle": "HAS مشروع علم مفتوح تموّله مجتمعه. هذا هو وضعنا الحقيقي — بلا تسويق — حتى يتمكن أي شخص من التحقق منه.",
+    "principles": {
+      "title": "مبادئنا في الشفافية",
+      "openSource": "كود مفتوح المصدر: كامل المكدس (has-web, has-admin, has-simulator) موجود على GitHub برخصة MIT.",
+      "openData": "بيانات مفتوحة: مجموعات البيانات المجمّعة التي ننشرها تحمل DOI على Zenodo وفق ترخيص CC-BY 4.0.",
+      "openProcess": "عملية مفتوحة: كل قرار معماري موثّق كـ ADR عام في مستودع المواصفات.",
+      "openFinance": "شؤون مالية مفتوحة: نوضّح هنا حالة التبرعات ونفقات AWS وخطة الكيان القانوني."
+    },
+    "donations": {
+      "title": "حالة التبرعات",
+      "statusLabel": "الحالة الراهنة: موقوفة مؤقتاً",
+      "statusValue": "التبرعات موقوفة مؤقتاً ريثما نُرسّم الكيان القانوني غير الربحي. لا يُقبل أي مبلغ في الوقت الحالي.",
+      "body": "أوقفنا التبرعات في مايو 2026 لأن Stripe صنّف HAS ضمن قائمة الأعمال المقيّدة (مشروع بلا كيان قانوني رسمي). جرى تعطيل المفتاح في اليوم ذاته، وتُعيد نقاط النهاية `POST /donate` خطأ HTTP 500 إلى حين حلّ هذا الإشكال. الخطة: التقدم إلى Open Source Collective بوصفه راعياً مالياً 501(c)(3)، وعند بلوغ MRR مبلغ 1,000 دولار أمريكي شهرياً، تأسيس جمعية مدنية مكسيكية مستقلة.",
+      "evidence": "القرار الكامل موثّق في <adr>ADR-020 — Pause donations pending legal entity</adr>."
+    },
+    "legal": {
+      "title": "الكيان القانوني والحوكمة",
+      "body": "يعمل HAS حالياً بصفة شخص طبيعي (المؤسس) في مرحلة انتقال نحو كيان غير ربحي رسمي. مسؤول الخصوصية المؤقت هو المؤسس نفسه؛ وسيُعيَّن دور DPO الرسمي عند دخول مستخدمين حقيقيين إلى بيئة الإنتاج. سياسة الخصوصية (v0.1-draft) قيد المراجعة القانونية وفق كل ولاية قضائية (المكسيك LFPDPPP، الولايات المتحدة HIPAA والقوانين المحلية، الاتحاد الأوروبي GDPR، البرازيل LGPD).",
+      "evidence": "خارطة طريق الكيان القانوني: <adr009>ADR-009 — Legal Entity Strategy</adr009>. تعيين مسؤول الخصوصية: <privacyOfficer>13-security/privacy-officer.md</privacyOfficer>."
+    },
+    "infra": {
+      "title": "البنية التحتية والتكاليف",
+      "intro": "تعمل البنية التحتية بالكامل في حساب AWS واحد (الحساب 712389989805، ملف التعريف dixi). التكاليف تحت تنبيهات صريحة لتجنب أي مفاجآت.",
+      "hostingLabel": "الاستضافة",
+      "hostingValue": "AWS (S3 + CloudFront + Route53 + ACM لـ has-web؛ Lambda + API Gateway + Aurora Postgres + Cognito لـ has-admin؛ ECS Fargate scale-to-zero لـ has-simulator).",
+      "budgetLabel": "الميزانية",
+      "budgetValue": "تنبيهات AWS Budgets عند 5 دولارات (تحذير) و20 دولاراً (حرج). تكلفة المحاكي في وضع الخمول: ~0 دولار (Fargate scale-to-zero).",
+      "deployLabel": "النشر",
+      "deployValue": "AWS CodePipeline للمستودعات الثلاثة (has-web, has-admin, has-simulator). كل push إلى main يُطلق تلقائياً عملية البناء والاختبار والنشر.",
+      "encryptionLabel": "التشفير",
+      "encryptionValue": "AES-256 للبيانات الساكنة (AWS KMS مع CMK مخصصة للخزينة والمحور). TLS 1.3 للبيانات أثناء النقل. لا يملك أي طرف ثالث وصولاً إلى البيانات."
+    },
+    "verify": {
+      "title": "كيف تتحقق من كل هذا",
+      "intro": "لا شيء مما سبق يستلزم الوثوق بكلامنا. كل شيء قابل للمراجعة:",
+      "repoLabel": "منظمة GitHub (جميع المستودعات عامة)",
+      "specsLabel": "مستودع المواصفات SDD + ADRs + خارطة الطريق",
+      "contactLabel": "لأي استفسار أو تحقق إضافي",
+      "contactCta": "راسلنا →"
+    },
+    "updatedAt": "آخر تحديث: {date}"
+  },
   "$meta": {
     "sourceLocale": "es",
     "translatedBy": "bedrock/us.anthropic.claude-sonnet-4-6",
-    "translatedAt": "2026-05-28T16:31:09.804Z",
+    "translatedAt": "2026-05-29T13:59:53.707Z",
     "needsHumanReview": true,
     "placeholder": false
   }

@@ -792,10 +792,57 @@
       "note": "Nicht abschließende Liste. Das vollständige Inventar findest du mit dem Befehl pnpm licenses list im Repository."
     }
   },
+  "TransparencyPage": {
+    "metaTitle": "Transparenz — Human Aging Simulators (HAS)",
+    "metaDescription": "Wie wir HAS finanzieren, verwalten und prüfen. Status von Spenden, Infrastruktur, rechtlicher Einheit und wie man uns auditiert.",
+    "eyebrow": "Transparenz",
+    "title": "Alles, was wir tun — offen einsehbar",
+    "subtitle": "HAS ist ein Open-Science-Projekt, das von seiner Gemeinschaft finanziert wird. Hier ist unser tatsächlicher Status — ohne Marketing — damit jede Person ihn überprüfen kann.",
+    "principles": {
+      "title": "Unsere Transparenzgrundsätze",
+      "openSource": "Open Source: der gesamte Stack (has-web, has-admin, has-simulator) lebt auf GitHub unter MIT-Lizenz.",
+      "openData": "Offene Daten: die aggregierten Datensätze, die wir veröffentlichen, erhalten einen DOI auf Zenodo unter CC-BY 4.0.",
+      "openProcess": "Offener Prozess: jede Architekturentscheidung lebt als öffentliches ADR im Specs-Repository.",
+      "openFinance": "Offene Finanzen: wir legen den Status von Spenden, AWS-Ausgaben und den Plan für die rechtliche Einheit hier offen dar."
+    },
+    "donations": {
+      "title": "Spendenstatus",
+      "statusLabel": "Aktueller Status: PAUSIERT",
+      "statusValue": "Spenden sind vorübergehend deaktiviert, während wir die gemeinnützige Rechtsperson formalisieren. Heute wird kein Geld angenommen.",
+      "body": "Wir haben Spenden im Mai 2026 pausiert, weil Stripe HAS auf seiner Liste der restricted businesses identifizierte (Projekt ohne formale Rechtsperson). Der Key wurde am selben Tag deaktiviert und die Endpunkte `POST /donate` geben HTTP 500 zurück, bis die Sperrung aufgelöst ist. Plan: Bewerbung bei Open Source Collective als Fiscal Sponsor 501(c)(3) und, sobald der MRR $1k USD/Monat erreicht, Gründung einer eigenen mexikanischen A.C.",
+      "evidence": "Vollständige Entscheidung dokumentiert in <adr>ADR-020 — Pause donations pending legal entity</adr>."
+    },
+    "legal": {
+      "title": "Rechtliche Einheit und Governance",
+      "body": "HAS wird als Einzelperson (Gründer) betrieben und befindet sich im Übergang zu einer formalen gemeinnützigen Einheit. Der vorläufige Privacy Officer ist derselbe Gründer; die formale DPO-Rolle wird bestimmt, wenn echte Bürgerinnen und Bürger in der Produktion hinzukommen. Die Datenschutzrichtlinie (v0.1-draft) steht noch unter rechtlicher Prüfung nach Jurisdiktion (Mexiko LFPDPPP, USA HIPAA + Landesgesetze, EU GDPR, Brasilien LGPD).",
+      "evidence": "Roadmap der Rechtsperson: <adr009>ADR-009 — Legal Entity Strategy</adr009>. Benennung des Privacy Officers: <privacyOfficer>13-security/privacy-officer.md</privacyOfficer>."
+    },
+    "infra": {
+      "title": "Infrastruktur und Kosten",
+      "intro": "Die gesamte Infrastruktur lebt in einem einzigen AWS-Konto (Konto 712389989805, Profil dixi). Die Kosten werden durch explizite Benachrichtigungen überwacht, um Überraschungen zu vermeiden.",
+      "hostingLabel": "Hosting",
+      "hostingValue": "AWS (S3 + CloudFront + Route53 + ACM für has-web; Lambda + API Gateway + Aurora Postgres + Cognito für has-admin; ECS Fargate scale-to-zero für has-simulator).",
+      "budgetLabel": "Budget",
+      "budgetValue": "AWS Budgets-Benachrichtigungen bei $5 (Warnung) und $20 (kritisch). Ruhezustand-Kosten des Simulators: ~$0 (Fargate scale-to-zero).",
+      "deployLabel": "Deployment",
+      "deployValue": "AWS CodePipeline für alle 3 Repositories (has-web, has-admin, has-simulator). Jeder Push auf main löst automatisch Build + Test + Deployment aus.",
+      "encryptionLabel": "Verschlüsselung",
+      "encryptionValue": "AES-256 im Ruhezustand (AWS KMS mit dedizierten CMKs für Vault und Hub). TLS 1.3 bei der Übertragung. Keine Drittparteien mit Datenzugang."
+    },
+    "verify": {
+      "title": "So lässt sich alles überprüfen",
+      "intro": "Nichts davon erfordert, uns beim Wort zu nehmen. Alles kann auditiert werden:",
+      "repoLabel": "GitHub-Organisation (alle öffentlichen Repositories)",
+      "specsLabel": "Specs-Repository mit SDD + ADRs + Roadmap",
+      "contactLabel": "Fragen oder weitere Überprüfungen",
+      "contactCta": "Schreib uns →"
+    },
+    "updatedAt": "Zuletzt aktualisiert: {date}"
+  },
   "$meta": {
     "sourceLocale": "es",
     "translatedBy": "bedrock/us.anthropic.claude-sonnet-4-6",
-    "translatedAt": "2026-05-28T16:28:45.537Z",
+    "translatedAt": "2026-05-29T13:57:43.221Z",
     "needsHumanReview": true,
     "placeholder": false
   }
