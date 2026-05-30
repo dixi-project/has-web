@@ -9,28 +9,143 @@
  * acento, logo "H" en círculo, eyebrow chiquito, título grande, subtítulo,
  * y dominio `haslife.org` abajo a la izquierda.
  *
- * `ImageResponse` corre en runtime edge/node — sin React full, solo HTML
- * + styles inline + fonts del sistema (V1, sin custom fonts).
+ * Las fonts se cargan dinámicamente según el script del locale: Noto Sans
+ * (latin + cyrillic, default) y Noto Sans Arabic / JP / SC / Devanagari
+ * para los locales que requieren shaping complejo. `ImageResponse` solo
+ * soporta TTF/OTF/WOFF (no WOFF2) — usamos fontsource WOFF.
  */
+import fs from "node:fs";
+import path from "node:path";
 import { ImageResponse } from "next/og";
 import { routing } from "@/i18n/routing";
 
 export const OG_SIZE = { width: 1200, height: 630 } as const;
 export const OG_CONTENT_TYPE = "image/png";
 
-/**
- * Locales que el renderer de `ImageResponse` puede dibujar con la fuente
- * del sistema sin shaping complejo. Excluimos por ahora los scripts que
- * requieren fuentes específicas (ar/ja/zh/hi) — V2 cargar Noto Sans
- * Arabic/JP/SC/Devanagari y soportar los 11.
- */
-const OG_SUPPORTED_LOCALES = ["es", "en", "pt", "fr", "it", "de", "ru"];
-
 export function ogStaticParams() {
-  return routing.locales
-    .filter((l) => OG_SUPPORTED_LOCALES.includes(l))
-    .map((locale) => ({ locale }));
+  return routing.locales.map((locale) => ({ locale }));
 }
+
+// ---- Font loading -----------------------------------------------------------
+
+type ScriptKey =
+  | "latin"
+  | "cyrillic"
+  | "arabic"
+  | "japanese"
+  | "chinese-simplified"
+  | "devanagari";
+
+// Cada locale puede requerir múltiples scripts (p.ej. ar suele tener latín
+// para términos como "HAS", URLs, números arábigos occidentales).
+const LOCALE_SCRIPTS: Record<string, ScriptKey[]> = {
+  es: ["latin"],
+  en: ["latin"],
+  pt: ["latin"],
+  fr: ["latin"],
+  it: ["latin"],
+  de: ["latin"],
+  ru: ["cyrillic", "latin"],
+  ar: ["arabic", "latin"],
+  ja: ["japanese", "latin"],
+  zh: ["chinese-simplified", "latin"],
+  hi: ["devanagari", "latin"],
+};
+
+// Path a cada woff dentro de `node_modules/@fontsource/...`. Format:
+// [paquete fontsource, archivo woff dentro de files/]
+const FONT_FILES: Record<
+  ScriptKey,
+  { pkg: string; file400: string; file700: string }
+> = {
+  latin: {
+    pkg: "noto-sans",
+    file400: "noto-sans-latin-400-normal.woff",
+    file700: "noto-sans-latin-700-normal.woff",
+  },
+  cyrillic: {
+    pkg: "noto-sans",
+    file400: "noto-sans-cyrillic-400-normal.woff",
+    file700: "noto-sans-cyrillic-700-normal.woff",
+  },
+  arabic: {
+    // satori (motor de next/og) no implementa GSUB Lookup Type 5 Format 3
+    // que usa Noto Sans Arabic — falla con
+    // `lookupType: 5 - substFormat: 3 is not yet supported`. Cairo es
+    // una fuente árabe moderna con shaping más simple compatible.
+    pkg: "cairo",
+    file400: "cairo-arabic-400-normal.woff",
+    file700: "cairo-arabic-700-normal.woff",
+  },
+  japanese: {
+    pkg: "noto-sans-jp",
+    file400: "noto-sans-jp-japanese-400-normal.woff",
+    file700: "noto-sans-jp-japanese-700-normal.woff",
+  },
+  "chinese-simplified": {
+    pkg: "noto-sans-sc",
+    file400: "noto-sans-sc-chinese-simplified-400-normal.woff",
+    file700: "noto-sans-sc-chinese-simplified-700-normal.woff",
+  },
+  devanagari: {
+    pkg: "noto-sans-devanagari",
+    file400: "noto-sans-devanagari-devanagari-400-normal.woff",
+    file700: "noto-sans-devanagari-devanagari-700-normal.woff",
+  },
+};
+
+const fontCache = new Map<string, ArrayBuffer>();
+
+function loadFontFile(pkg: string, file: string): ArrayBuffer {
+  const cacheKey = `${pkg}/${file}`;
+  const hit = fontCache.get(cacheKey);
+  if (hit) return hit;
+  const fullPath = path.join(
+    process.cwd(),
+    "node_modules",
+    "@fontsource",
+    pkg,
+    "files",
+    file,
+  );
+  const buf = fs.readFileSync(fullPath);
+  // Buffer → ArrayBuffer (slice exacto del segment usado).
+  const ab = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
+  fontCache.set(cacheKey, ab);
+  return ab;
+}
+
+type SatoriFont = {
+  name: string;
+  data: ArrayBuffer;
+  weight: 400 | 700;
+  style: "normal";
+};
+
+function loadFontsForLocale(locale: string): SatoriFont[] {
+  const scripts = LOCALE_SCRIPTS[locale] ?? ["latin"];
+  const fonts: SatoriFont[] = [];
+  for (const script of scripts) {
+    const cfg = FONT_FILES[script];
+    fonts.push(
+      {
+        name: "NotoSans",
+        data: loadFontFile(cfg.pkg, cfg.file400),
+        weight: 400,
+        style: "normal",
+      },
+      {
+        name: "NotoSans",
+        data: loadFontFile(cfg.pkg, cfg.file700),
+        weight: 700,
+        style: "normal",
+      },
+    );
+  }
+  return fonts;
+}
+
+// ---- Template ---------------------------------------------------------------
 
 type AccentKey = "emerald" | "amber" | "sky" | "rose" | "indigo";
 
@@ -49,6 +164,7 @@ const ACCENTS: Record<AccentKey, AccentColors> = {
 };
 
 export type OgTemplateProps = {
+  locale: string;
   brand: string;
   eyebrow: string;
   title: string;
@@ -58,6 +174,7 @@ export type OgTemplateProps = {
 
 export function renderOgImage(props: OgTemplateProps): ImageResponse {
   const accent = ACCENTS[props.accent ?? "emerald"];
+  const fonts = loadFontsForLocale(props.locale);
 
   return new ImageResponse(
     <div
@@ -68,7 +185,7 @@ export function renderOgImage(props: OgTemplateProps): ImageResponse {
         flexDirection: "column",
         background: `linear-gradient(135deg, ${accent.bg} 0%, #ffffff 60%, #ffffff 100%)`,
         padding: "72px",
-        fontFamily: "system-ui, sans-serif",
+        fontFamily: "NotoSans",
       }}
     >
       {/* Top row: logo + brand name */}
@@ -98,7 +215,7 @@ export function renderOgImage(props: OgTemplateProps): ImageResponse {
         <div
           style={{
             fontSize: "26px",
-            fontWeight: 600,
+            fontWeight: 700,
             color: "#0a0a0a",
             letterSpacing: "-0.01em",
           }}
@@ -164,7 +281,7 @@ export function renderOgImage(props: OgTemplateProps): ImageResponse {
         <div
           style={{
             fontSize: "22px",
-            fontWeight: 500,
+            fontWeight: 400,
             color: "#71717a",
           }}
         >
@@ -203,6 +320,6 @@ export function renderOgImage(props: OgTemplateProps): ImageResponse {
         </div>
       </div>
     </div>,
-    { ...OG_SIZE },
+    { ...OG_SIZE, fonts },
   );
 }

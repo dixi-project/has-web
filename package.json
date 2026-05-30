@@ -31,6 +31,12 @@
   },
   "devDependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.1055.0",
+    "@fontsource/cairo": "^5.2.7",
+    "@fontsource/noto-sans": "^5.2.10",
+    "@fontsource/noto-sans-arabic": "^5.2.10",
+    "@fontsource/noto-sans-devanagari": "^5.2.8",
+    "@fontsource/noto-sans-jp": "^5.2.9",
+    "@fontsource/noto-sans-sc": "^5.2.9",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

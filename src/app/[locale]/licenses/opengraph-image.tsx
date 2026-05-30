@@ -25,6 +25,7 @@ export default async function OgImage({
   const t = await getTranslations({ locale, namespace: "LicensesPage" });
 
   return renderOgImage({
+    locale,
     brand: tSite("name"),
     eyebrow: t("eyebrow"),
     title: t("title"),
