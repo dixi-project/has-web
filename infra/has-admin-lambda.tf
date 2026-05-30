@@ -108,6 +108,23 @@ resource "aws_iam_role_policy" "admin_server_data_api" {
           "arn:aws:bedrock:*::foundation-model/*",
           "arn:aws:bedrock:*:*:inference-profile/*"
         ]
+      },
+      {
+        # Leer el SecureString del shared secret (S7.4 recovery). El
+        # parameter vive en omop-etl-sync.tf; el path se inyecta como env.
+        Effect   = "Allow"
+        Action   = ["ssm:GetParameter"]
+        Resource = aws_ssm_parameter.internal_secret.arn
+      },
+      {
+        Effect   = "Allow"
+        Action   = ["kms:Decrypt"]
+        Resource = "*"
+        Condition = {
+          StringEquals = {
+            "kms:ViaService" = "ssm.us-east-1.amazonaws.com"
+          }
+        }
       }
     ]
   })
@@ -146,6 +163,18 @@ resource "aws_lambda_function" "admin_server" {
       # Citizen-vault uploads (S7.3) — bucket S3 + CMK KMS dedicados
       HAS_VAULT_BUCKET      = aws_s3_bucket.vault_uploads.bucket
       HAS_VAULT_KMS_KEY_ARN = aws_kms_key.vault_uploads.arn
+
+      # Collaborator-hub uploads (S7.12-v3) — bucket S3 + CMK KMS dedicados
+      HAS_HUB_BUCKET      = aws_s3_bucket.hub_uploads.bucket
+      HAS_HUB_KMS_KEY_ARN = aws_kms_key.hub_uploads.arn
+
+      # Bedrock para NLP redact V2 + generador de informes (S7.12-v5).
+      # El modelo concreto se versiona aquí (no inyectado a mano).
+      HAS_BEDROCK_MODEL_ID = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
+
+      # Shared secret SSM (S7.4 recovery) — el path. El valor se lee
+      # con cliente SSM al boot (cache 1h). Cero secrets en env vars.
+      HAS_INTERNAL_SECRET_PARAM = aws_ssm_parameter.internal_secret.name
 
       # OpenNext expects
       OPEN_NEXT_FORCE_NON_EMPTY_RESPONSE = "true"

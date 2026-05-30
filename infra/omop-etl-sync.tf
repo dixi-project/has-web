@@ -6,20 +6,28 @@
 # shared secret. El endpoint procesa hasta `SYNC_LIMIT` recursos FHIR sin
 # `omop_synced_at` (los marca al sincronizar).
 #
-# El secret se genera aquí (random_password) y SOLO se inyecta como variable
-# de entorno de la Lambda admin-server **fuera de Terraform** (porque
-# admin-server tiene `lifecycle.ignore_changes = [environment]` para no
-# sobreescribir las keys de Stripe/reCAPTCHA inyectadas a mano). El runbook:
-#
-#   1. terraform apply  -> crea Lambda + EventBridge + random secret
-#   2. terraform output  -> ver `omop_etl_internal_secret`
-#   3. aws lambda update-function-configuration --function-name has-admin-server \
-#        --environment "Variables={..., HAS_INTERNAL_SECRET=<secret>}"
+# 2026-05-30: el shared secret ahora vive en SSM Parameter Store
+# (SecureString cifrado con la AWS-managed KMS key `alias/aws/ssm`). Ambas
+# Lambdas leen el secret de SSM al boot con cache (cero secrets en env
+# vars). Un `terraform apply` completo ya NO pierde nada — el SSM parameter
+# sobrevive al redeploy y las Lambdas siempre lo encuentran. Ver
+# `src/lib/secret-config.ts` en has-admin para el cliente.
 # ---------------------------------------------------------------------------
 
 resource "random_password" "omop_etl_internal_secret" {
   length  = 48
   special = false
+}
+
+# SSM Parameter SecureString — fuente de verdad del shared secret. El valor
+# sale del random_password y vive cifrado en SSM (no en env vars). Ambas
+# Lambdas (has-admin-server + has-omop-etl-sync) lo leen con cache.
+resource "aws_ssm_parameter" "internal_secret" {
+  name        = "/has/admin/internal-secret"
+  description = "Shared secret entre has-omop-etl-sync y has-admin-server (S7.4 recovery)"
+  type        = "SecureString"
+  value       = random_password.omop_etl_internal_secret.result
+  tags        = var.tags
 }
 
 data "archive_file" "omop_etl_sync" {
@@ -46,6 +54,33 @@ resource "aws_iam_role_policy_attachment" "omop_etl_sync_basic" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
+# Permite leer el SecureString del internal secret + descifrar con la
+# AWS-managed KMS key de SSM.
+resource "aws_iam_role_policy" "omop_etl_sync_ssm" {
+  name = "ssm-internal-secret"
+  role = aws_iam_role.omop_etl_sync.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = ["ssm:GetParameter"]
+        Resource = aws_ssm_parameter.internal_secret.arn
+      },
+      {
+        Effect   = "Allow"
+        Action   = ["kms:Decrypt"]
+        Resource = "*"
+        Condition = {
+          StringEquals = {
+            "kms:ViaService" = "ssm.us-east-1.amazonaws.com"
+          }
+        }
+      }
+    ]
+  })
+}
+
 resource "aws_cloudwatch_log_group" "omop_etl_sync" {
   name              = "/aws/lambda/has-omop-etl-sync"
   retention_in_days = 30
@@ -66,9 +101,9 @@ resource "aws_lambda_function" "omop_etl_sync" {
 
   environment {
     variables = {
-      SYNC_ENDPOINT       = "https://admin.haslife.org/api/internal/omop/sync-pending"
-      SYNC_LIMIT          = "100"
-      HAS_INTERNAL_SECRET = random_password.omop_etl_internal_secret.result
+      SYNC_ENDPOINT             = "https://admin.haslife.org/api/internal/omop/sync-pending"
+      SYNC_LIMIT                = "100"
+      HAS_INTERNAL_SECRET_PARAM = aws_ssm_parameter.internal_secret.name
     }
   }
 
@@ -98,15 +133,9 @@ resource "aws_lambda_permission" "omop_etl_sync_events" {
   source_arn    = aws_cloudwatch_event_rule.omop_etl_sync.arn
 }
 
-# --- Output: inyectar el secret a mano en has-admin-server ---------------
+# --- Output (referencia para debug, ya NO requiere inyección manual) ---
 
-output "omop_etl_internal_secret" {
-  description = <<-EOT
-    Shared secret de la Lambda has-omop-etl-sync. Inyéctalo en la Lambda
-    has-admin-server:
-      aws lambda update-function-configuration --profile dixi --region us-east-1 \
-        --function-name has-admin-server --environment "Variables={...,HAS_INTERNAL_SECRET=...}"
-  EOT
-  value       = random_password.omop_etl_internal_secret.result
-  sensitive   = true
+output "internal_secret_ssm_param" {
+  description = "Path SSM del shared secret (SecureString). Lo leen has-admin-server y has-omop-etl-sync en runtime con cache."
+  value       = aws_ssm_parameter.internal_secret.name
 }
