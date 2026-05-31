@@ -84,7 +84,11 @@ resource "aws_iam_role_policy" "admin_server_data_api" {
           "cognito-idp:AdminUpdateUserAttributes",
           "cognito-idp:AdminEnableUser",
           "cognito-idp:AdminDisableUser",
-          "cognito-idp:ListUsers"
+          "cognito-idp:ListUsers",
+          # Demo provisioning (Sprint 8 — /api/demo/provision)
+          "cognito-idp:AdminCreateUser",
+          "cognito-idp:AdminSetUserPassword",
+          "cognito-idp:AdminDeleteUser"
         ]
         Resource = aws_cognito_user_pool.platform.arn
       },
