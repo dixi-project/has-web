@@ -86,6 +86,12 @@ variable "github_simulator_repo" {
   default     = "dixi-project/has-simulator"
 }
 
+variable "github_data_repo" {
+  description = "Repo GitHub de has-data (owner/repo) — source del pipeline de CI."
+  type        = string
+  default     = "dixi-project/has-data"
+}
+
 variable "github_branch" {
   description = "Rama que dispara el pipeline de despliegue."
   type        = string
