@@ -328,7 +328,8 @@
     "rights": "コンテンツは CC-BY · コードは寛容なライセンス (MIT/Apache) のもとに。",
     "year": "© {year} Human Aging Simulators.",
     "createdByLabel": "制作",
-    "createdByName": "Dixi Project"
+    "createdByName": "Dixi Project",
+    "linkDatasets": "データセット"
   },
   "Disclaimer": {
     "notMedicalDevice": "Human Aging Simulators (HAS) は医療機器ではありません。シミュレーション、レポート、予測は教育・研究目的のモデルであり、診断・治療・臨床推奨を構成しません。"
@@ -839,10 +840,55 @@
     },
     "updatedAt": "最終更新：{date}"
   },
+  "DatasetsPage": {
+    "metaTitle": "オープンデータセット — Human Aging Simulators (HAS)",
+    "metaDescription": "加齢の研究のためのオープンな合成人口データ。実在する個人を含まず、集約・検証済みのデータをCC-BY 4.0ライセンスのもと、ZenodoにてDOI付きで公開しています。",
+    "eyebrow": "オープンサイエンス",
+    "title": "加齢研究のためのオープンデータセット",
+    "subtitle": "実際の分布を忠実に再現しながら、個人のプライバシーを守った合成人口データを公開しています。ダウンロード可能、引用可能、そして統計的に検証済みです。",
+    "intro": {
+      "title": "このデータについて",
+      "body": "各データセットは、UN World Population Prospectsなどの公式公開データを元に生成された合成人口です。国・年・年齢・性別ごとの実際の分布を再現していますが、各レコードは統計的サンプリングによって生成された架空の人物であり、実在する人物には対応していません。これにより、誰のプライバシーも損なうことなく、再現性のある加齢研究を可能にしています。"
+    },
+    "card": {
+      "heading": "注目のデータセット",
+      "statusPending": "DOI 近日公開",
+      "doiPending": "https://doi.org/ (保留中)"
+    },
+    "stats": {
+      "personsLabel": "人数",
+      "yearsLabel": "年数",
+      "fractionLabel": "サンプル率",
+      "licenseLabel": "ライセンス",
+      "validationLabel": "バリデーション",
+      "validationValue": "実データとの統計的同等性テストに合格（年齢の誤差 <5%、性別 <2%、合計 <0.5%）。"
+    },
+    "method": {
+      "title": "生成方法",
+      "body": "実際のコホート（年・年齢・性別）ごとに、人口の10%を合成人物としてサンプリングしています。年齢・性別・年のマージナル分布は構造的に保持されます。サンプリングは決定論的であり、同一のシードから常にまったく同じデータセットが再現され、各リリースには統計的バリデーションレポートが含まれます。",
+      "limitationsTitle": "既知の制限事項",
+      "limitations": {
+        "nse": "社会経済的五分位数は、実際の不平等データを統合するまでの暫定措置として、等確率分布を使用しています。",
+        "layer1": "このバージョンは、レイヤー1の人口統計的次元（国・年・年齢・性別）のみをモデル化しています。",
+        "biomed": "生体医学的変数（BMI、合併症、遺伝的要因）は将来のバージョンで追加予定です。"
+      }
+    },
+    "privacy": {
+      "title": "プライバシー保証",
+      "body": "これらのデータセットは実在する個人に由来するものではなく、公開された集計データのみをもとに生成されています。各レコードは統計的サンプリングによって作成されたものであり、個人データに基づくものではないため、実在する人物が再識別されることはありません。"
+    },
+    "cite": {
+      "title": "引用方法",
+      "intro": "このデータセットを研究でご利用の際は、以下のように引用してください：",
+      "plainLabel": "プレーンテキスト",
+      "bibtexLabel": "BibTeX"
+    },
+    "updatedAt": "最終更新：{date}"
+  },
   "$meta": {
     "sourceLocale": "es",
     "translatedBy": "bedrock/us.anthropic.claude-sonnet-4-6",
-    "translatedAt": "2026-05-29T13:58:30.272Z",
+    "translatedAt": "2026-07-08T08:57:00.751Z",
     "needsHumanReview": true,
     "placeholder": false
   }

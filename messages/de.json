@@ -328,7 +328,8 @@
     "rights": "Inhalte unter CC-BY · Code unter permissiven Lizenzen (MIT/Apache).",
     "year": "© {year} Human Aging Simulators.",
     "createdByLabel": "Erstellt von",
-    "createdByName": "Dixi Project"
+    "createdByName": "Dixi Project",
+    "linkDatasets": "Datasets"
   },
   "Disclaimer": {
     "notMedicalDevice": "Human Aging Simulators (HAS) ist kein Medizinprodukt. Die Simulationen, Berichte und Vorhersagen sind edukative Modelle und Forschung. Sie stellen weder Diagnose noch Behandlung noch klinische Empfehlung dar."
@@ -839,10 +840,55 @@
     },
     "updatedAt": "Zuletzt aktualisiert: {date}"
   },
+  "DatasetsPage": {
+    "metaTitle": "Datasets offen — Human Aging Simulators (HAS)",
+    "metaDescription": "Offene synthetische Bevölkerungen zur Erforschung des Alterns. Aggregierte und validierte Daten, ohne reale Personen, unter CC-BY 4.0 mit DOI in Zenodo.",
+    "eyebrow": "Offene Wissenschaft",
+    "title": "Offene Datasets zur Erforschung des Alterns",
+    "subtitle": "Wir veröffentlichen synthetische Bevölkerungen, die reale Verteilungen abbilden, ohne einzelne Personen preiszugeben. Herunterladbar, zitierbar und statistisch validiert.",
+    "intro": {
+      "title": "Was sind diese Daten",
+      "body": "Jeder Dataset ist eine synthetische Bevölkerung, die aus offiziellen öffentlichen Quellen generiert wurde (z. B. UN World Population Prospects). Er reproduziert die realen Verteilungen nach Land, Jahr, Alter und Geschlecht, doch jeder Eintrag ist eine fiktive, per Stichprobe erzeugte Person — er entspricht keinem echten Menschen. So ermöglichen wir reproduzierbare Altersforschung, ohne die Privatsphäre irgendjemandes zu gefährden."
+    },
+    "card": {
+      "heading": "Ausgewählter Dataset",
+      "statusPending": "DOI demnächst verfügbar",
+      "doiPending": "https://doi.org/ (ausstehend)"
+    },
+    "stats": {
+      "personsLabel": "Personen",
+      "yearsLabel": "Jahre",
+      "fractionLabel": "Stichprobe",
+      "licenseLabel": "Lizenz",
+      "validationLabel": "Validierung",
+      "validationValue": "Besteht die statistischen Äquivalenztests gegenüber den Realdaten (Randabweichung Alter <5 %, Geschlecht <2 %, gesamt <0,5 %)."
+    },
+    "method": {
+      "title": "Wie er erzeugt wird",
+      "body": "Für jede reale Kohorte (Jahr, Alter, Geschlecht) entnehmen wir 10 % der Bevölkerung als synthetische Personen. Die Randverteilungen nach Alter, Geschlecht und Jahr bleiben konstruktionsbedingt erhalten. Die Stichprobenziehung ist deterministisch: Ein und derselbe Seed reproduziert exakt denselben Dataset, und jedes Release enthält einen statistischen Validierungsbericht.",
+      "limitationsTitle": "Bekannte Einschränkungen",
+      "limitations": {
+        "nse": "Der sozioökonomische Quintil verwendet vorläufig eine gleichwahrscheinliche Verteilung, bis eine reale Ungleichheitsquelle integriert wird.",
+        "layer1": "Diese Version modelliert nur die demografischen Dimensionen von Schicht 1 (Land, Jahr, Alter, Geschlecht).",
+        "biomed": "Biomedizinische Variablen (BMI, Komorbiditäten, genetische Faktoren) folgen in künftigen Versionen."
+      }
+    },
+    "privacy": {
+      "title": "Datenschutzgarantie",
+      "body": "Diese Datasets enthalten keine realen Personen und leiten sich auch nicht von ihnen ab — sie basieren ausschließlich auf öffentlichen Aggregaten. Keine reale Person kann re-identifiziert werden, da jeder Eintrag durch statistisches Sampling erzeugt wird, nicht aus personenbezogenen Daten."
+    },
+    "cite": {
+      "title": "Wie man zitiert",
+      "intro": "Wenn du diesen Dataset in deiner Forschung verwendest, zitiere ihn bitte wie folgt:",
+      "plainLabel": "Klartext",
+      "bibtexLabel": "BibTeX"
+    },
+    "updatedAt": "Letzte Aktualisierung: {date}"
+  },
   "$meta": {
     "sourceLocale": "es",
     "translatedBy": "bedrock/us.anthropic.claude-sonnet-4-6",
-    "translatedAt": "2026-05-29T13:57:43.221Z",
+    "translatedAt": "2026-07-08T08:56:27.938Z",
     "needsHumanReview": true,
     "placeholder": false
   }

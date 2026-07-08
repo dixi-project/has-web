@@ -328,7 +328,8 @@
     "rights": "内容采用 CC-BY · 代码采用宽松许可 (MIT/Apache)。",
     "year": "© {year} Human Aging Simulators.",
     "createdByLabel": "由",
-    "createdByName": "Dixi Project"
+    "createdByName": "Dixi Project",
+    "linkDatasets": "数据集"
   },
   "Disclaimer": {
     "notMedicalDevice": "Human Aging Simulators (HAS) 不是医疗器械。模拟、报告与预测是教育与研究模型,不构成诊断、治疗或临床建议。"
@@ -839,10 +840,55 @@
     },
     "updatedAt": "最后更新：{date}"
   },
+  "DatasetsPage": {
+    "metaTitle": "开放数据集 — Human Aging Simulators (HAS)",
+    "metaDescription": "用于研究衰老的开放合成人口数据。经过汇总与验证，不含真实个人信息，遵循 CC-BY 4.0 协议，并在 Zenodo 上提供 DOI。",
+    "eyebrow": "开放科学",
+    "title": "用于衰老研究的开放数据集",
+    "subtitle": "我们发布合成人口数据，在保留真实分布规律的同时，不暴露任何个人信息。可下载、可引用，并经过统计验证。",
+    "intro": {
+      "title": "这些数据是什么",
+      "body": "每个数据集都是基于官方公开来源（如联合国世界人口展望）生成的合成人口。它再现了按国家、年份、年龄和性别划分的真实分布，但每条记录都是通过统计抽样生成的虚构个体，不对应任何真实存在的人。这样，我们便能在不侵犯任何人隐私的前提下，开展可复现的衰老研究。"
+    },
+    "card": {
+      "heading": "精选数据集",
+      "statusPending": "DOI 即将发布",
+      "doiPending": "https://doi.org/ （待定）"
+    },
+    "stats": {
+      "personsLabel": "人数",
+      "yearsLabel": "年份",
+      "fractionLabel": "样本比例",
+      "licenseLabel": "许可协议",
+      "validationLabel": "验证",
+      "validationValue": "通过与真实数据的统计等效性检验（年龄边际误差 <5%，性别 <2%，总体 <0.5%）。"
+    },
+    "method": {
+      "title": "生成方式",
+      "body": "对于每个真实队列（年份、年龄、性别），我们抽取 10% 的人口作为合成个体。年龄、性别和年份的边际分布在构建过程中得以保留。抽样过程具有确定性：相同的随机种子可精确还原同一数据集，每次发布均附带统计验证报告。",
+      "limitationsTitle": "已知局限性",
+      "limitations": {
+        "nse": "社会经济五分位数目前采用等概率临时分布，待整合真实不平等数据来源后将予以更新。",
+        "layer1": "当前版本仅对第一层的人口维度（国家、年份、年龄、性别）进行建模。",
+        "biomed": "生物医学变量（BMI、合并症、遗传因素）将在未来版本中加入。"
+      }
+    },
+    "privacy": {
+      "title": "隐私保障",
+      "body": "这些数据集不包含也不来源于真实个人，仅基于公开汇总数据生成。由于每条记录均通过统计抽样产生，而非来自个人数据，因此任何真实个人都无法被重新识别。"
+    },
+    "cite": {
+      "title": "如何引用",
+      "intro": "若您在研究中使用了本数据集，请按以下方式引用：",
+      "plainLabel": "纯文本",
+      "bibtexLabel": "BibTeX"
+    },
+    "updatedAt": "最后更新：{date}"
+  },
   "$meta": {
     "sourceLocale": "es",
     "translatedBy": "bedrock/us.anthropic.claude-sonnet-4-6",
-    "translatedAt": "2026-05-29T13:58:51.471Z",
+    "translatedAt": "2026-07-08T08:57:14.664Z",
     "needsHumanReview": true,
     "placeholder": false
   }

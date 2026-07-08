@@ -11,6 +11,7 @@ const PATHS = [
   { path: "citizens", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "collaborators", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "simulator", priority: 0.9, changeFrequency: "weekly" as const },
+  { path: "datasets", priority: 0.7, changeFrequency: "monthly" as const },
   { path: "contact", priority: 0.6, changeFrequency: "monthly" as const },
   { path: "privacy", priority: 0.5, changeFrequency: "monthly" as const },
   { path: "licenses", priority: 0.4, changeFrequency: "monthly" as const },

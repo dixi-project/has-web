@@ -328,7 +328,8 @@
     "rights": "Contenu sous CC-BY · Code sous licences permissives (MIT/Apache).",
     "year": "© {year} Human Aging Simulators.",
     "createdByLabel": "Créé par",
-    "createdByName": "Dixi Project"
+    "createdByName": "Dixi Project",
+    "linkDatasets": "Datasets"
   },
   "Disclaimer": {
     "notMedicalDevice": "Human Aging Simulators (HAS) n'est pas un dispositif médical. Les simulations, rapports et projections sont des modèles éducatifs et de recherche. Ils ne constituent ni diagnostic, ni traitement, ni recommandation clinique."
@@ -839,10 +840,55 @@
     },
     "updatedAt": "Dernière mise à jour : {date}"
   },
+  "DatasetsPage": {
+    "metaTitle": "Datasets ouverts — Human Aging Simulators (HAS)",
+    "metaDescription": "Populations synthétiques ouvertes pour explorer le vieillissement. Données agrégées et validées, sans individus réels, sous licence CC-BY 4.0 avec DOI sur Zenodo.",
+    "eyebrow": "Science ouverte",
+    "title": "Datasets ouverts pour explorer le vieillissement",
+    "subtitle": "Nous publions des populations synthétiques qui préservent les distributions réelles sans exposer aucune personne. Téléchargeables, citables et validées statistiquement.",
+    "intro": {
+      "title": "Que sont ces données",
+      "body": "Chaque dataset est une population synthétique générée à partir de sources publiques officielles (comme UN World Population Prospects). Elle reproduit les distributions réelles par pays, année, âge et sexe, mais chaque enregistrement est une personne fictive échantillonnée : il ne correspond à aucun être humain réel. Nous permettons ainsi une recherche reproductible sur le vieillissement sans compromettre la vie privée de quiconque."
+    },
+    "card": {
+      "heading": "Dataset mis en avant",
+      "statusPending": "DOI bientôt disponible",
+      "doiPending": "https://doi.org/ (en attente)"
+    },
+    "stats": {
+      "personsLabel": "Personnes",
+      "yearsLabel": "Années",
+      "fractionLabel": "Échantillon",
+      "licenseLabel": "Licence",
+      "validationLabel": "Validation",
+      "validationValue": "Passe les tests d'équivalence statistique par rapport aux données réelles (erreur marginale par âge <5%, par sexe <2%, total <0,5%)."
+    },
+    "method": {
+      "title": "Comment cela est généré",
+      "body": "Pour chaque cohorte réelle (année, âge, sexe), nous échantillonnons 10% de la population sous forme de personnes synthétiques. Les marginaux d'âge, de sexe et d'année sont préservés par construction. L'échantillonnage est déterministe : une même graine reproduit exactement le même dataset, et chaque version inclut un rapport de validation statistique.",
+      "limitationsTitle": "Limitations connues",
+      "limitations": {
+        "nse": "Le quintile socio-économique utilise une distribution équiprobable provisoire, dans l'attente de l'intégration d'une source réelle d'inégalité.",
+        "layer1": "Cette version modélise uniquement les dimensions démographiques de la couche 1 (pays, année, âge, sexe).",
+        "biomed": "Les variables biomédicales (IMC, comorbidités, facteurs génétiques) seront disponibles dans de futures versions."
+      }
+    },
+    "privacy": {
+      "title": "Garantie de confidentialité",
+      "body": "Ces datasets ne contiennent ni ne dérivent d'individus réels : uniquement d'agrégats publics. Aucune personne réelle ne peut être réidentifiée, car chaque enregistrement est généré par échantillonnage statistique, et non à partir de données personnelles."
+    },
+    "cite": {
+      "title": "Comment citer",
+      "intro": "Si vous utilisez ce dataset dans vos recherches, citez-le ainsi :",
+      "plainLabel": "Texte brut",
+      "bibtexLabel": "BibTeX"
+    },
+    "updatedAt": "Dernière mise à jour : {date}"
+  },
   "$meta": {
     "sourceLocale": "es",
     "translatedBy": "bedrock/us.anthropic.claude-sonnet-4-6",
-    "translatedAt": "2026-05-29T13:57:10.427Z",
+    "translatedAt": "2026-07-08T08:56:00.887Z",
     "needsHumanReview": true,
     "placeholder": false
   }
